@@ -10,7 +10,7 @@ namespace CapaDeNegocio
     public class Boleta
     {
         public string Id_boleta { get; set; }
-        public Medio_de_pago Medio_de_pago { get; set; }
+        public Medio_de_Pago Medio_de_pago { get; set; }
         public System.DateTime Fecha_emision { get; set; }
         public Atencion Atencion { get; set; }
         public decimal Valor_total { get; set; }
@@ -19,7 +19,7 @@ namespace CapaDeNegocio
         public Boleta()
         {
             Id_boleta = "";
-            Medio_de_pago = new Medio_de_pago();
+            Medio_de_pago = new Medio_de_Pago();
             Fecha_emision = DateTime.Now;
             Atencion = new Atencion();
             Valor_total = 0;
