@@ -84,9 +84,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Admin.xaml.cs">
+      <DependentUpon>Admin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Cocina.xaml.cs">
+      <DependentUpon>Cocina.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mesero.xaml.cs">
+      <DependentUpon>Mesero.xaml</DependentUpon>
     </Compile>
     <Compile Include="Restaurante_Siglo_XXIDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -96,7 +105,33 @@
     <Compile Include="VistaAdministrador.xaml.cs">
       <DependentUpon>VistaAdministrador.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VistaBodega.xaml.cs">
+      <DependentUpon>VistaBodega.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VistaFinanzas.xaml.cs">
+      <DependentUpon>VistaFinanzas.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Admin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cocina.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Mesero.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="VistaAdministrador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VistaBodega.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VistaFinanzas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

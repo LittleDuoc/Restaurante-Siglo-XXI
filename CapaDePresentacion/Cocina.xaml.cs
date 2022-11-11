@@ -27,9 +27,9 @@ namespace Resto2
         private void Cerrar_Session_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Session Cerrada Correctamente ");
-            MainWindow mainWindow = new MainWindow();
-            this.Close();
-            mainWindow.ShowDialog();
+            //MainWindow mainWindow = new MainWindow();
+            //this.Close();
+            //mainWindow.ShowDialog();
         }
     }
 }

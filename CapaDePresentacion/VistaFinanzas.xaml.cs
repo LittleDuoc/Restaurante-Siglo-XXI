@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using CapaDeNegocio
 
 namespace CapaDePresentacion
 {
     /// <summary>
-    /// Lógica de interacción para VistaAdministrador.xaml
+    /// Lógica de interacción para VistaFinanzas.xaml
     /// </summary>
-    public partial class VistaAdministrador : Window
+    public partial class VistaFinanzas : Window
     {
-        public VistaAdministrador()
+        public VistaFinanzas()
         {
             InitializeComponent();
         }
