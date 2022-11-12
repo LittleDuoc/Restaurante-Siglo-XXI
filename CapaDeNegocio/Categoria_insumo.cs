@@ -8,5 +8,8 @@ namespace CapaDeNegocio
 {
     internal class Categoria_insumo
     {
+        public String id_categoria { get; set; }
+        public String categoria { get; set; }
+
     }
 }

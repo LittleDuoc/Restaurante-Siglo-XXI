@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using CapaDeNegocio;
+using CapaDeDatos;
 
 namespace CapaDeNegocio
 {
@@ -17,12 +18,16 @@ namespace CapaDeNegocio
         public decimal Porcion { get; set; }
         public string U_medida { get; set; }
 
-        public Receta mostrar()
+        public void  crear_receta()
         {
-            DataTable tabla = new DataTable();
-            tabla = objectCD.mostrar();           
-            return tabla
+            Id_receta = "";
+            Preparacion = new Preparacion();
+            Insumo = new Insumo();
+            Porcion = 0;
+            Porcion= 0;
+            U_medida = "";
         }
 
-    }
+
+        }
 }
