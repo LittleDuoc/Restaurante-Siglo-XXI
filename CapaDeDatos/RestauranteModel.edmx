@@ -4,1341 +4,1700 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Restaurante_Siglo_XXIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ATENCION">
+      <Schema Namespace="RestauranteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="auth_user">
           <Key>
-            <PropertyRef Name="id_atencion" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_atencion" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="fecha" Type="datetime" Nullable="false" />
-          <Property Name="id_mesa" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="last_login" Type="datetime2" Precision="7" />
+          <Property Name="is_superuser" Type="bit" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="254" Nullable="false" />
+          <Property Name="is_staff" Type="bit" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="date_joined" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
-        <EntityType Name="BOLETA">
+        <EntityType Name="Restaurante_atencion">
           <Key>
-            <PropertyRef Name="id_boleta" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_boleta" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="id_medio_de_pago" Type="char" MaxLength="18" />
-          <Property Name="fecha_emision" Type="datetime" />
-          <Property Name="id_atencion" Type="char" MaxLength="18" />
-          <Property Name="valor_total" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="id_mesa" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="CATEGORIA">
+        <EntityType Name="Restaurante_boleta">
           <Key>
-            <PropertyRef Name="id_categoria" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_categoria" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="descripcion" Type="nchar" MaxLength="20" />
-          <Property Name="slug" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_emision" Type="datetime2" Precision="7" />
+          <Property Name="valor_total" Type="int" />
+          <Property Name="id_atencion" Type="bigint" />
+          <Property Name="id_medio_de_pago" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Restaurante_categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="20" />
           <Property Name="img_categoria" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="CATEGORIA_INSUMO">
+        <EntityType Name="Restaurante_categoriainsumo">
           <Key>
-            <PropertyRef Name="id_categoria" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_categoria" Type="char" MaxLength="3" Nullable="false" />
-          <Property Name="descripcion" Type="char" MaxLength="20" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <EntityType Name="DETALLE_ORDEN">
+        <EntityType Name="Restaurante_detalleorden">
           <Key>
-            <PropertyRef Name="id_detalle_orden" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_detalle_orden" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="cantidad" Type="numeric" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="u_medida" Type="char" MaxLength="5" Nullable="false" />
-          <Property Name="id_orden" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="id_insumo" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="estado" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="u_medida" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="precio_unitario" Type="int" />
+          <Property Name="monto_total" Type="int" Nullable="false" />
+          <Property Name="estado" Type="bigint" Nullable="false" />
+          <Property Name="id_insumo" Type="bigint" Nullable="false" />
+          <Property Name="id_orden" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="ESTADO_MESA">
+        <EntityType Name="Restaurante_estadomesa">
           <Key>
-            <PropertyRef Name="estado" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="estado" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
-        <EntityType Name="ESTADO_ORDEN">
+        <EntityType Name="Restaurante_estadoorden">
           <Key>
-            <PropertyRef Name="estado" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="estado" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
-        <EntityType Name="ESTADO_RESERVA">
+        <EntityType Name="Restaurante_estadoreserva">
           <Key>
-            <PropertyRef Name="estado" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="estado" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
-        <EntityType Name="INSUMO">
+        <EntityType Name="Restaurante_insumo">
           <Key>
-            <PropertyRef Name="id_insumo" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_insumo" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="nombre" Type="char" MaxLength="30" />
-          <Property Name="stock" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="fecha_abastecimiento" Type="datetime" />
-          <Property Name="id_prov" Type="char" MaxLength="18" />
-          <Property Name="id_marca" Type="char" MaxLength="18" />
-          <Property Name="id_categoria" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="30" />
+          <Property Name="stock" Type="int" />
+          <Property Name="fecha_abastecimiento" Type="datetime2" Precision="7" />
+          <Property Name="id_categoria" Type="bigint" Nullable="false" />
+          <Property Name="id_marca" Type="bigint" />
+          <Property Name="id_prov" Type="bigint" />
         </EntityType>
-        <EntityType Name="MARCA">
+        <EntityType Name="Restaurante_marca">
           <Key>
-            <PropertyRef Name="id_marca" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_marca" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="nombre" Type="nchar" MaxLength="50" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="MEDIO_DE_PAGO">
+        <EntityType Name="Restaurante_mediodepago">
           <Key>
-            <PropertyRef Name="id_medio_pago" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_medio_pago" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="tipo_de_pago" Type="char" MaxLength="20" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo_de_pago" Type="nvarchar" MaxLength="20" />
         </EntityType>
-        <EntityType Name="MESA">
+        <EntityType Name="Restaurante_mesa">
           <Key>
-            <PropertyRef Name="id_mesa" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_mesa" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="id_usuario" Type="char" MaxLength="18" />
-          <Property Name="estado" Type="char" MaxLength="15" />
-          <Property Name="ubicacion" Type="char" MaxLength="30" />
-          <Property Name="capacidad" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="capacidad" Type="int" />
+          <Property Name="estado" Type="bigint" />
+          <Property Name="id_usuario" Type="bigint" />
         </EntityType>
-        <EntityType Name="ORDEN">
+        <EntityType Name="Restaurante_orden">
           <Key>
-            <PropertyRef Name="id_orden" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_orden" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="fecha_orden" Type="datetime" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_orden" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
-        <EntityType Name="PEDIDO">
+        <EntityType Name="Restaurante_pedido">
           <Key>
-            <PropertyRef Name="id_pedido" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_atencion" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="id_mesa" Type="char" MaxLength="18" />
-          <Property Name="id_preparacion" Type="char" MaxLength="18" />
-          <Property Name="fecha" Type="datetime" />
-          <Property Name="cantidad" Type="numeric" Precision="3" Scale="0" />
-          <Property Name="total" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="id_pedido" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_mesa" Type="nvarchar" MaxLength="18" />
+          <Property Name="fecha" Type="datetime2" Precision="7" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="total" Type="int" />
+          <Property Name="entregado" Type="bit" />
+          <Property Name="id_atencion" Type="bigint" Nullable="false" />
+          <Property Name="id_preparacion" Type="bigint" />
         </EntityType>
-        <EntityType Name="PREPARACION">
+        <EntityType Name="Restaurante_preparacion">
           <Key>
-            <PropertyRef Name="id_preparacion" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_preparacion" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="nombre_receta" Type="nchar" MaxLength="100" />
-          <Property Name="precio" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="id_categoria" Type="char" MaxLength="18" />
-          <Property Name="img_preparacion" Type="char" MaxLength="100" />
-          <Property Name="slug" Type="nvarchar" MaxLength="200" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_receta" Type="nvarchar" MaxLength="100" />
+          <Property Name="precio" Type="int" />
+          <Property Name="img_preparacion" Type="nvarchar" MaxLength="100" />
+          <Property Name="modo_prep" Type="nvarchar" MaxLength="800" />
+          <Property Name="id_categoria" Type="bigint" />
+          <Property Name="minuto_prep" Type="bigint" />
         </EntityType>
-        <EntityType Name="PROVEEDOR">
+        <EntityType Name="Restaurante_proveedor">
           <Key>
-            <PropertyRef Name="id_proveedor" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_proveedor" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="nombre" Type="char" MaxLength="50" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="RECETA">
+        <EntityType Name="Restaurante_receta">
           <Key>
-            <PropertyRef Name="id_receta" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_preparacion" Type="char" MaxLength="18" />
-          <Property Name="id_insumo" Type="char" MaxLength="18" />
-          <Property Name="porcion" Type="numeric" Precision="18" Scale="2" />
-          <Property Name="u_medida" Type="char" MaxLength="5" />
-          <Property Name="id_receta" Type="char" MaxLength="18" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="porcion" Type="int" />
+          <Property Name="u_medida" Type="nvarchar" MaxLength="5" />
+          <Property Name="id_insumo" Type="bigint" />
+          <Property Name="id_preparacion" Type="bigint" />
         </EntityType>
-        <EntityType Name="RESERVA">
+        <EntityType Name="Restaurante_reserva">
           <Key>
-            <PropertyRef Name="id_reserva" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_reserva" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="nombre_cliente" Type="char" MaxLength="30" Nullable="false" />
-          <Property Name="id_mesa" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="fecha" Type="datetime" Nullable="false" />
-          <Property Name="estado" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_cliente" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="fecha" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="telefono" Type="nvarchar" MaxLength="12" />
+          <Property Name="estado" Type="bigint" Nullable="false" />
+          <Property Name="id_mesa" Type="bigint" Nullable="false" />
         </EntityType>
-        <EntityType Name="ROL">
+        <EntityType Name="Restaurante_rol">
           <Key>
-            <PropertyRef Name="id_rol" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_rol" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="rol" Type="char" MaxLength="20" Nullable="false" />
-          <Property Name="descripcion" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rol" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="USUARIO">
+        <EntityType Name="Restaurante_usuario">
           <Key>
-            <PropertyRef Name="id_usuario" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_usuario" Type="char" MaxLength="18" Nullable="false" />
-          <Property Name="rut" Type="char" MaxLength="12" />
-          <Property Name="nombre" Type="char" MaxLength="20" />
-          <Property Name="apellido_p" Type="char" MaxLength="20" />
-          <Property Name="apellido_m" Type="char" MaxLength="20" />
-          <Property Name="id_rol" Type="char" MaxLength="18" />
-          <Property Name="direccion" Type="char" MaxLength="100" />
-          <Property Name="correo" Type="char" MaxLength="50" />
-          <Property Name="password" Type="char" MaxLength="50" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rut" Type="nvarchar" MaxLength="12" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="20" />
+          <Property Name="apellido_p" Type="nvarchar" MaxLength="20" />
+          <Property Name="apellido_m" Type="nvarchar" MaxLength="20" />
+          <Property Name="direccion" Type="nvarchar" MaxLength="100" />
+          <Property Name="correo" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="id_rol" Type="bigint" />
         </EntityType>
-        <Association Name="FK_ATENCION_MESA">
-          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
-          <End Role="ATENCION" Type="Self.ATENCION" Multiplicity="*" />
+        <Association Name="Restaurante_atencion_id_mesa_63ef4a5b_fk_Restaurante_mesa_id">
+          <End Role="Restaurante_mesa" Type="Self.Restaurante_mesa" Multiplicity="1" />
+          <End Role="Restaurante_atencion" Type="Self.Restaurante_atencion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MESA">
-              <PropertyRef Name="id_mesa" />
+            <Principal Role="Restaurante_mesa">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="ATENCION">
+            <Dependent Role="Restaurante_atencion">
               <PropertyRef Name="id_mesa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Boleta_Atencion">
-          <End Role="ATENCION" Type="Self.ATENCION" Multiplicity="0..1" />
-          <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="*" />
+        <Association Name="Restaurante_boleta_id_atencion_0d4577de_fk_Restaurante_atencion_id">
+          <End Role="Restaurante_atencion" Type="Self.Restaurante_atencion" Multiplicity="0..1" />
+          <End Role="Restaurante_boleta" Type="Self.Restaurante_boleta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ATENCION">
-              <PropertyRef Name="id_atencion" />
+            <Principal Role="Restaurante_atencion">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="BOLETA">
+            <Dependent Role="Restaurante_boleta">
               <PropertyRef Name="id_atencion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Boleta_Medio de pago">
-          <End Role="MEDIO_DE_PAGO" Type="Self.MEDIO_DE_PAGO" Multiplicity="0..1" />
-          <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="*" />
+        <Association Name="Restaurante_boleta_id_medio_de_pago_a951d242_fk_Restaurante_mediodepago_id">
+          <End Role="Restaurante_mediodepago" Type="Self.Restaurante_mediodepago" Multiplicity="0..1" />
+          <End Role="Restaurante_boleta" Type="Self.Restaurante_boleta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MEDIO_DE_PAGO">
-              <PropertyRef Name="id_medio_pago" />
+            <Principal Role="Restaurante_mediodepago">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="BOLETA">
+            <Dependent Role="Restaurante_boleta">
               <PropertyRef Name="id_medio_de_pago" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_ORDEN_ESTADO_ORDEN">
-          <End Role="ESTADO_ORDEN" Type="Self.ESTADO_ORDEN" Multiplicity="1" />
-          <End Role="DETALLE_ORDEN" Type="Self.DETALLE_ORDEN" Multiplicity="*" />
+        <Association Name="Restaurante_detalleorden_estado_b99d3176_fk_Restaurante_estadoorden_id">
+          <End Role="Restaurante_estadoorden" Type="Self.Restaurante_estadoorden" Multiplicity="1" />
+          <End Role="Restaurante_detalleorden" Type="Self.Restaurante_detalleorden" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ESTADO_ORDEN">
+            <Principal Role="Restaurante_estadoorden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_detalleorden">
               <PropertyRef Name="estado" />
-            </Principal>
-            <Dependent Role="DETALLE_ORDEN">
-              <PropertyRef Name="estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_ORDEN_INSUMO">
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="1" />
-          <End Role="DETALLE_ORDEN" Type="Self.DETALLE_ORDEN" Multiplicity="*" />
+        <Association Name="Restaurante_detalleorden_id_insumo_48912d33_fk_Restaurante_insumo_id">
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="1" />
+          <End Role="Restaurante_detalleorden" Type="Self.Restaurante_detalleorden" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INSUMO">
-              <PropertyRef Name="id_insumo" />
+            <Principal Role="Restaurante_insumo">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="DETALLE_ORDEN">
+            <Dependent Role="Restaurante_detalleorden">
               <PropertyRef Name="id_insumo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_ORDEN_ORDEN">
-          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="1" />
-          <End Role="DETALLE_ORDEN" Type="Self.DETALLE_ORDEN" Multiplicity="*" />
+        <Association Name="Restaurante_detalleorden_id_orden_fdddcffd_fk_Restaurante_orden_id">
+          <End Role="Restaurante_orden" Type="Self.Restaurante_orden" Multiplicity="1" />
+          <End Role="Restaurante_detalleorden" Type="Self.Restaurante_detalleorden" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ORDEN">
+            <Principal Role="Restaurante_orden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_detalleorden">
               <PropertyRef Name="id_orden" />
-            </Principal>
-            <Dependent Role="DETALLE_ORDEN">
-              <PropertyRef Name="id_orden" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_INSUMO_CATEGORIA_INSUMO">
-          <End Role="CATEGORIA_INSUMO" Type="Self.CATEGORIA_INSUMO" Multiplicity="1" />
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="*" />
+        <Association Name="Restaurante_insumo_id_categoria_7d20876c_fk_Restaurante_categoriainsumo_id">
+          <End Role="Restaurante_categoriainsumo" Type="Self.Restaurante_categoriainsumo" Multiplicity="1" />
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CATEGORIA_INSUMO">
-              <PropertyRef Name="id_categoria" />
+            <Principal Role="Restaurante_categoriainsumo">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="INSUMO">
+            <Dependent Role="Restaurante_insumo">
               <PropertyRef Name="id_categoria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Insumo_Marca">
-          <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="*" />
+        <Association Name="Restaurante_insumo_id_marca_0d79c410_fk_Restaurante_marca_id">
+          <End Role="Restaurante_marca" Type="Self.Restaurante_marca" Multiplicity="0..1" />
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MARCA">
-              <PropertyRef Name="id_marca" />
+            <Principal Role="Restaurante_marca">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="INSUMO">
+            <Dependent Role="Restaurante_insumo">
               <PropertyRef Name="id_marca" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Insumo_Proveedor">
-          <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="0..1" />
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="*" />
+        <Association Name="Restaurante_insumo_id_prov_fa01e380_fk_Restaurante_proveedor_id">
+          <End Role="Restaurante_proveedor" Type="Self.Restaurante_proveedor" Multiplicity="0..1" />
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PROVEEDOR">
-              <PropertyRef Name="id_proveedor" />
+            <Principal Role="Restaurante_proveedor">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="INSUMO">
+            <Dependent Role="Restaurante_insumo">
               <PropertyRef Name="id_prov" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MESA_ESTADO_MESA1">
-          <End Role="ESTADO_MESA" Type="Self.ESTADO_MESA" Multiplicity="0..1" />
-          <End Role="MESA" Type="Self.MESA" Multiplicity="*" />
+        <Association Name="Restaurante_mesa_estado_3a404b54_fk_Restaurante_estadomesa_id">
+          <End Role="Restaurante_estadomesa" Type="Self.Restaurante_estadomesa" Multiplicity="0..1" />
+          <End Role="Restaurante_mesa" Type="Self.Restaurante_mesa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ESTADO_MESA">
-              <PropertyRef Name="estado" />
+            <Principal Role="Restaurante_estadomesa">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="MESA">
+            <Dependent Role="Restaurante_mesa">
               <PropertyRef Name="estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Mesa_Usuario">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
-          <End Role="MESA" Type="Self.MESA" Multiplicity="*" />
+        <Association Name="Restaurante_mesa_id_usuario_f99337c9_fk_Restaurante_usuario_id">
+          <End Role="Restaurante_usuario" Type="Self.Restaurante_usuario" Multiplicity="0..1" />
+          <End Role="Restaurante_mesa" Type="Self.Restaurante_mesa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="USUARIO">
+            <Principal Role="Restaurante_usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_mesa">
               <PropertyRef Name="id_usuario" />
-            </Principal>
-            <Dependent Role="MESA">
-              <PropertyRef Name="id_usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pedido_Atencion">
-          <End Role="ATENCION" Type="Self.ATENCION" Multiplicity="1" />
-          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
+        <Association Name="Restaurante_pedido_id_atencion_9e8a274f_fk_Restaurante_atencion_id">
+          <End Role="Restaurante_atencion" Type="Self.Restaurante_atencion" Multiplicity="1" />
+          <End Role="Restaurante_pedido" Type="Self.Restaurante_pedido" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ATENCION">
-              <PropertyRef Name="id_atencion" />
+            <Principal Role="Restaurante_atencion">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="PEDIDO">
+            <Dependent Role="Restaurante_pedido">
               <PropertyRef Name="id_atencion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pedido_Plato">
-          <End Role="PREPARACION" Type="Self.PREPARACION" Multiplicity="0..1" />
-          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
+        <Association Name="Restaurante_pedido_id_preparacion_a90e6494_fk_Restaurante_preparacion_id">
+          <End Role="Restaurante_preparacion" Type="Self.Restaurante_preparacion" Multiplicity="0..1" />
+          <End Role="Restaurante_pedido" Type="Self.Restaurante_pedido" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PREPARACION">
-              <PropertyRef Name="id_preparacion" />
+            <Principal Role="Restaurante_preparacion">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="PEDIDO">
+            <Dependent Role="Restaurante_pedido">
               <PropertyRef Name="id_preparacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Plato_Categoria">
-          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
-          <End Role="PREPARACION" Type="Self.PREPARACION" Multiplicity="*" />
+        <Association Name="Restaurante_preparacion_id_categoria_7e1abc18_fk_Restaurante_categoria_id">
+          <End Role="Restaurante_categoria" Type="Self.Restaurante_categoria" Multiplicity="0..1" />
+          <End Role="Restaurante_preparacion" Type="Self.Restaurante_preparacion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CATEGORIA">
+            <Principal Role="Restaurante_categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_preparacion">
               <PropertyRef Name="id_categoria" />
-            </Principal>
-            <Dependent Role="PREPARACION">
-              <PropertyRef Name="id_categoria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Receta_Insumo">
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="0..1" />
-          <End Role="RECETA" Type="Self.RECETA" Multiplicity="*" />
+        <Association Name="Restaurante_receta_id_insumo_e03998d5_fk_Restaurante_insumo_id">
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="0..1" />
+          <End Role="Restaurante_receta" Type="Self.Restaurante_receta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INSUMO">
-              <PropertyRef Name="id_insumo" />
+            <Principal Role="Restaurante_insumo">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="RECETA">
+            <Dependent Role="Restaurante_receta">
               <PropertyRef Name="id_insumo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Receta_Preparacion">
-          <End Role="PREPARACION" Type="Self.PREPARACION" Multiplicity="0..1" />
-          <End Role="RECETA" Type="Self.RECETA" Multiplicity="*" />
+        <Association Name="Restaurante_receta_id_preparacion_81dc7866_fk_Restaurante_preparacion_id">
+          <End Role="Restaurante_preparacion" Type="Self.Restaurante_preparacion" Multiplicity="0..1" />
+          <End Role="Restaurante_receta" Type="Self.Restaurante_receta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PREPARACION">
+            <Principal Role="Restaurante_preparacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_receta">
               <PropertyRef Name="id_preparacion" />
-            </Principal>
-            <Dependent Role="RECETA">
-              <PropertyRef Name="id_preparacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RESERVA_ESTADO_RESERVA">
-          <End Role="ESTADO_RESERVA" Type="Self.ESTADO_RESERVA" Multiplicity="1" />
-          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
+        <Association Name="Restaurante_reserva_estado_7107949c_fk_Restaurante_estadoreserva_id">
+          <End Role="Restaurante_estadoreserva" Type="Self.Restaurante_estadoreserva" Multiplicity="1" />
+          <End Role="Restaurante_reserva" Type="Self.Restaurante_reserva" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ESTADO_RESERVA">
-              <PropertyRef Name="estado" />
+            <Principal Role="Restaurante_estadoreserva">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="RESERVA">
+            <Dependent Role="Restaurante_reserva">
               <PropertyRef Name="estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RESERVA_MESA">
-          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
-          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
+        <Association Name="Restaurante_reserva_id_mesa_be5b365f_fk_Restaurante_mesa_id">
+          <End Role="Restaurante_mesa" Type="Self.Restaurante_mesa" Multiplicity="1" />
+          <End Role="Restaurante_reserva" Type="Self.Restaurante_reserva" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MESA">
-              <PropertyRef Name="id_mesa" />
+            <Principal Role="Restaurante_mesa">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="RESERVA">
+            <Dependent Role="Restaurante_reserva">
               <PropertyRef Name="id_mesa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Usuario_Rol">
-          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+        <Association Name="Restaurante_usuario_id_rol_09d6796e_fk_Restaurante_rol_id">
+          <End Role="Restaurante_rol" Type="Self.Restaurante_rol" Multiplicity="0..1" />
+          <End Role="Restaurante_usuario" Type="Self.Restaurante_usuario" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ROL">
-              <PropertyRef Name="id_rol" />
+            <Principal Role="Restaurante_rol">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="USUARIO">
+            <Dependent Role="Restaurante_usuario">
               <PropertyRef Name="id_rol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="SP_Ingreso_de_pedidos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Id_pedido" Type="char" Mode="In" />
-          <Parameter Name="Id_atencion" Type="char" Mode="In" />
-          <Parameter Name="Id_mesa" Type="char" Mode="In" />
-          <Parameter Name="Id_preparacion" Type="char" Mode="In" />
-          <Parameter Name="Fecha" Type="datetime" Mode="In" />
-          <Parameter Name="Cantidad" Type="numeric" Mode="In" />
-          <Parameter Name="Total" Type="numeric" Mode="In" />
-        </Function>
-        <Function Name="SP_Insercion_Empleados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Id_usuario" Type="char" Mode="In" />
-          <Parameter Name="Rut" Type="char" Mode="In" />
-          <Parameter Name="Nombre" Type="char" Mode="In" />
-          <Parameter Name="Apellido_p" Type="char" Mode="In" />
-          <Parameter Name="Apellido_m" Type="char" Mode="In" />
-          <Parameter Name="ID_rol" Type="char" Mode="In" />
-          <Parameter Name="DIreccion" Type="char" Mode="In" />
-          <Parameter Name="COrreo" Type="char" Mode="In" />
-          <Parameter Name="Password" Type="char" Mode="In" />
-        </Function>
-        <Function Name="SP_recetas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="SP_Total_mas_vendido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="Restaurante_Siglo_XXIModelStoreContainer">
-          <EntitySet Name="ATENCION" EntityType="Self.ATENCION" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BOLETA" EntityType="Self.BOLETA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CATEGORIA_INSUMO" EntityType="Self.CATEGORIA_INSUMO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DETALLE_ORDEN" EntityType="Self.DETALLE_ORDEN" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ESTADO_MESA" EntityType="Self.ESTADO_MESA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ESTADO_ORDEN" EntityType="Self.ESTADO_ORDEN" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ESTADO_RESERVA" EntityType="Self.ESTADO_RESERVA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="INSUMO" EntityType="Self.INSUMO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MARCA" EntityType="Self.MARCA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MEDIO_DE_PAGO" EntityType="Self.MEDIO_DE_PAGO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MESA" EntityType="Self.MESA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ORDEN" EntityType="Self.ORDEN" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PEDIDO" EntityType="Self.PEDIDO" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PREPARACION" EntityType="Self.PREPARACION" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RECETA" EntityType="Self.RECETA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RESERVA" EntityType="Self.RESERVA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ATENCION_MESA" Association="Self.FK_ATENCION_MESA">
-            <End Role="MESA" EntitySet="MESA" />
-            <End Role="ATENCION" EntitySet="ATENCION" />
+        <Function Name="SP_listarAtencion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarBoleta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarCategoriaInsumo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarDetalleOrden" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarEstadoMesa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarEstadoOrden" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarEstadoReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarInsumo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarMarca" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarMedioPago" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarMesa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarOrden" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarPreparacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarProveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarReceta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarRol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_listarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="RestauranteModelStoreContainer">
+          <EntitySet Name="auth_user" EntityType="Self.auth_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_atencion" EntityType="Self.Restaurante_atencion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_boleta" EntityType="Self.Restaurante_boleta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_categoria" EntityType="Self.Restaurante_categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_categoriainsumo" EntityType="Self.Restaurante_categoriainsumo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_detalleorden" EntityType="Self.Restaurante_detalleorden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_estadomesa" EntityType="Self.Restaurante_estadomesa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_estadoorden" EntityType="Self.Restaurante_estadoorden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_estadoreserva" EntityType="Self.Restaurante_estadoreserva" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_insumo" EntityType="Self.Restaurante_insumo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_marca" EntityType="Self.Restaurante_marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_mediodepago" EntityType="Self.Restaurante_mediodepago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_mesa" EntityType="Self.Restaurante_mesa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_orden" EntityType="Self.Restaurante_orden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_pedido" EntityType="Self.Restaurante_pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_preparacion" EntityType="Self.Restaurante_preparacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_proveedor" EntityType="Self.Restaurante_proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_receta" EntityType="Self.Restaurante_receta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_reserva" EntityType="Self.Restaurante_reserva" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_rol" EntityType="Self.Restaurante_rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurante_usuario" EntityType="Self.Restaurante_usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Restaurante_atencion_id_mesa_63ef4a5b_fk_Restaurante_mesa_id" Association="Self.Restaurante_atencion_id_mesa_63ef4a5b_fk_Restaurante_mesa_id">
+            <End Role="Restaurante_mesa" EntitySet="Restaurante_mesa" />
+            <End Role="Restaurante_atencion" EntitySet="Restaurante_atencion" />
           </AssociationSet>
-          <AssociationSet Name="FK_Boleta_Atencion" Association="Self.FK_Boleta_Atencion">
-            <End Role="ATENCION" EntitySet="ATENCION" />
-            <End Role="BOLETA" EntitySet="BOLETA" />
+          <AssociationSet Name="Restaurante_boleta_id_atencion_0d4577de_fk_Restaurante_atencion_id" Association="Self.Restaurante_boleta_id_atencion_0d4577de_fk_Restaurante_atencion_id">
+            <End Role="Restaurante_atencion" EntitySet="Restaurante_atencion" />
+            <End Role="Restaurante_boleta" EntitySet="Restaurante_boleta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Boleta_Medio de pago" Association="Self.FK_Boleta_Medio de pago">
-            <End Role="MEDIO_DE_PAGO" EntitySet="MEDIO_DE_PAGO" />
-            <End Role="BOLETA" EntitySet="BOLETA" />
+          <AssociationSet Name="Restaurante_boleta_id_medio_de_pago_a951d242_fk_Restaurante_mediodepago_id" Association="Self.Restaurante_boleta_id_medio_de_pago_a951d242_fk_Restaurante_mediodepago_id">
+            <End Role="Restaurante_mediodepago" EntitySet="Restaurante_mediodepago" />
+            <End Role="Restaurante_boleta" EntitySet="Restaurante_boleta" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_ORDEN_ESTADO_ORDEN" Association="Self.FK_DETALLE_ORDEN_ESTADO_ORDEN">
-            <End Role="ESTADO_ORDEN" EntitySet="ESTADO_ORDEN" />
-            <End Role="DETALLE_ORDEN" EntitySet="DETALLE_ORDEN" />
+          <AssociationSet Name="Restaurante_detalleorden_estado_b99d3176_fk_Restaurante_estadoorden_id" Association="Self.Restaurante_detalleorden_estado_b99d3176_fk_Restaurante_estadoorden_id">
+            <End Role="Restaurante_estadoorden" EntitySet="Restaurante_estadoorden" />
+            <End Role="Restaurante_detalleorden" EntitySet="Restaurante_detalleorden" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_ORDEN_INSUMO" Association="Self.FK_DETALLE_ORDEN_INSUMO">
-            <End Role="INSUMO" EntitySet="INSUMO" />
-            <End Role="DETALLE_ORDEN" EntitySet="DETALLE_ORDEN" />
+          <AssociationSet Name="Restaurante_detalleorden_id_insumo_48912d33_fk_Restaurante_insumo_id" Association="Self.Restaurante_detalleorden_id_insumo_48912d33_fk_Restaurante_insumo_id">
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
+            <End Role="Restaurante_detalleorden" EntitySet="Restaurante_detalleorden" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_ORDEN_ORDEN" Association="Self.FK_DETALLE_ORDEN_ORDEN">
-            <End Role="ORDEN" EntitySet="ORDEN" />
-            <End Role="DETALLE_ORDEN" EntitySet="DETALLE_ORDEN" />
+          <AssociationSet Name="Restaurante_detalleorden_id_orden_fdddcffd_fk_Restaurante_orden_id" Association="Self.Restaurante_detalleorden_id_orden_fdddcffd_fk_Restaurante_orden_id">
+            <End Role="Restaurante_orden" EntitySet="Restaurante_orden" />
+            <End Role="Restaurante_detalleorden" EntitySet="Restaurante_detalleorden" />
           </AssociationSet>
-          <AssociationSet Name="FK_INSUMO_CATEGORIA_INSUMO" Association="Self.FK_INSUMO_CATEGORIA_INSUMO">
-            <End Role="CATEGORIA_INSUMO" EntitySet="CATEGORIA_INSUMO" />
-            <End Role="INSUMO" EntitySet="INSUMO" />
+          <AssociationSet Name="Restaurante_insumo_id_categoria_7d20876c_fk_Restaurante_categoriainsumo_id" Association="Self.Restaurante_insumo_id_categoria_7d20876c_fk_Restaurante_categoriainsumo_id">
+            <End Role="Restaurante_categoriainsumo" EntitySet="Restaurante_categoriainsumo" />
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Insumo_Marca" Association="Self.FK_Insumo_Marca">
-            <End Role="MARCA" EntitySet="MARCA" />
-            <End Role="INSUMO" EntitySet="INSUMO" />
+          <AssociationSet Name="Restaurante_insumo_id_marca_0d79c410_fk_Restaurante_marca_id" Association="Self.Restaurante_insumo_id_marca_0d79c410_fk_Restaurante_marca_id">
+            <End Role="Restaurante_marca" EntitySet="Restaurante_marca" />
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Insumo_Proveedor" Association="Self.FK_Insumo_Proveedor">
-            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
-            <End Role="INSUMO" EntitySet="INSUMO" />
+          <AssociationSet Name="Restaurante_insumo_id_prov_fa01e380_fk_Restaurante_proveedor_id" Association="Self.Restaurante_insumo_id_prov_fa01e380_fk_Restaurante_proveedor_id">
+            <End Role="Restaurante_proveedor" EntitySet="Restaurante_proveedor" />
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
           </AssociationSet>
-          <AssociationSet Name="FK_MESA_ESTADO_MESA1" Association="Self.FK_MESA_ESTADO_MESA1">
-            <End Role="ESTADO_MESA" EntitySet="ESTADO_MESA" />
-            <End Role="MESA" EntitySet="MESA" />
+          <AssociationSet Name="Restaurante_mesa_estado_3a404b54_fk_Restaurante_estadomesa_id" Association="Self.Restaurante_mesa_estado_3a404b54_fk_Restaurante_estadomesa_id">
+            <End Role="Restaurante_estadomesa" EntitySet="Restaurante_estadomesa" />
+            <End Role="Restaurante_mesa" EntitySet="Restaurante_mesa" />
           </AssociationSet>
-          <AssociationSet Name="FK_Mesa_Usuario" Association="Self.FK_Mesa_Usuario">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="MESA" EntitySet="MESA" />
+          <AssociationSet Name="Restaurante_mesa_id_usuario_f99337c9_fk_Restaurante_usuario_id" Association="Self.Restaurante_mesa_id_usuario_f99337c9_fk_Restaurante_usuario_id">
+            <End Role="Restaurante_usuario" EntitySet="Restaurante_usuario" />
+            <End Role="Restaurante_mesa" EntitySet="Restaurante_mesa" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pedido_Atencion" Association="Self.FK_Pedido_Atencion">
-            <End Role="ATENCION" EntitySet="ATENCION" />
-            <End Role="PEDIDO" EntitySet="PEDIDO" />
+          <AssociationSet Name="Restaurante_pedido_id_atencion_9e8a274f_fk_Restaurante_atencion_id" Association="Self.Restaurante_pedido_id_atencion_9e8a274f_fk_Restaurante_atencion_id">
+            <End Role="Restaurante_atencion" EntitySet="Restaurante_atencion" />
+            <End Role="Restaurante_pedido" EntitySet="Restaurante_pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pedido_Plato" Association="Self.FK_Pedido_Plato">
-            <End Role="PREPARACION" EntitySet="PREPARACION" />
-            <End Role="PEDIDO" EntitySet="PEDIDO" />
+          <AssociationSet Name="Restaurante_pedido_id_preparacion_a90e6494_fk_Restaurante_preparacion_id" Association="Self.Restaurante_pedido_id_preparacion_a90e6494_fk_Restaurante_preparacion_id">
+            <End Role="Restaurante_preparacion" EntitySet="Restaurante_preparacion" />
+            <End Role="Restaurante_pedido" EntitySet="Restaurante_pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK_Plato_Categoria" Association="Self.FK_Plato_Categoria">
-            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
-            <End Role="PREPARACION" EntitySet="PREPARACION" />
+          <AssociationSet Name="Restaurante_preparacion_id_categoria_7e1abc18_fk_Restaurante_categoria_id" Association="Self.Restaurante_preparacion_id_categoria_7e1abc18_fk_Restaurante_categoria_id">
+            <End Role="Restaurante_categoria" EntitySet="Restaurante_categoria" />
+            <End Role="Restaurante_preparacion" EntitySet="Restaurante_preparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK_Receta_Insumo" Association="Self.FK_Receta_Insumo">
-            <End Role="INSUMO" EntitySet="INSUMO" />
-            <End Role="RECETA" EntitySet="RECETA" />
+          <AssociationSet Name="Restaurante_receta_id_insumo_e03998d5_fk_Restaurante_insumo_id" Association="Self.Restaurante_receta_id_insumo_e03998d5_fk_Restaurante_insumo_id">
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
+            <End Role="Restaurante_receta" EntitySet="Restaurante_receta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Receta_Preparacion" Association="Self.FK_Receta_Preparacion">
-            <End Role="PREPARACION" EntitySet="PREPARACION" />
-            <End Role="RECETA" EntitySet="RECETA" />
+          <AssociationSet Name="Restaurante_receta_id_preparacion_81dc7866_fk_Restaurante_preparacion_id" Association="Self.Restaurante_receta_id_preparacion_81dc7866_fk_Restaurante_preparacion_id">
+            <End Role="Restaurante_preparacion" EntitySet="Restaurante_preparacion" />
+            <End Role="Restaurante_receta" EntitySet="Restaurante_receta" />
           </AssociationSet>
-          <AssociationSet Name="FK_RESERVA_ESTADO_RESERVA" Association="Self.FK_RESERVA_ESTADO_RESERVA">
-            <End Role="ESTADO_RESERVA" EntitySet="ESTADO_RESERVA" />
-            <End Role="RESERVA" EntitySet="RESERVA" />
+          <AssociationSet Name="Restaurante_reserva_estado_7107949c_fk_Restaurante_estadoreserva_id" Association="Self.Restaurante_reserva_estado_7107949c_fk_Restaurante_estadoreserva_id">
+            <End Role="Restaurante_estadoreserva" EntitySet="Restaurante_estadoreserva" />
+            <End Role="Restaurante_reserva" EntitySet="Restaurante_reserva" />
           </AssociationSet>
-          <AssociationSet Name="FK_RESERVA_MESA" Association="Self.FK_RESERVA_MESA">
-            <End Role="MESA" EntitySet="MESA" />
-            <End Role="RESERVA" EntitySet="RESERVA" />
+          <AssociationSet Name="Restaurante_reserva_id_mesa_be5b365f_fk_Restaurante_mesa_id" Association="Self.Restaurante_reserva_id_mesa_be5b365f_fk_Restaurante_mesa_id">
+            <End Role="Restaurante_mesa" EntitySet="Restaurante_mesa" />
+            <End Role="Restaurante_reserva" EntitySet="Restaurante_reserva" />
           </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
-            <End Role="ROL" EntitySet="ROL" />
-            <End Role="USUARIO" EntitySet="USUARIO" />
+          <AssociationSet Name="Restaurante_usuario_id_rol_09d6796e_fk_Restaurante_rol_id" Association="Self.Restaurante_usuario_id_rol_09d6796e_fk_Restaurante_rol_id">
+            <End Role="Restaurante_rol" EntitySet="Restaurante_rol" />
+            <End Role="Restaurante_usuario" EntitySet="Restaurante_usuario" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Restaurante_Siglo_XXIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ATENCION">
+      <Schema Namespace="RestauranteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="auth_user">
           <Key>
-            <PropertyRef Name="id_atencion" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_atencion" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_mesa" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="MESA" Relationship="Self.FK_ATENCION_MESA" FromRole="ATENCION" ToRole="MESA" />
-          <NavigationProperty Name="BOLETA" Relationship="Self.FK_Boleta_Atencion" FromRole="ATENCION" ToRole="BOLETA" />
-          <NavigationProperty Name="PEDIDO" Relationship="Self.FK_Pedido_Atencion" FromRole="ATENCION" ToRole="PEDIDO" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_login" Type="DateTime" Precision="7" />
+          <Property Name="is_superuser" Type="Boolean" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="254" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="is_staff" Type="Boolean" Nullable="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="date_joined" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
-        <EntityType Name="BOLETA">
+        <EntityType Name="Restaurante_atencion">
           <Key>
-            <PropertyRef Name="id_boleta" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_boleta" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="id_medio_de_pago" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="fecha_emision" Type="DateTime" Precision="3" />
-          <Property Name="id_atencion" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="valor_total" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="ATENCION" Relationship="Self.FK_Boleta_Atencion" FromRole="BOLETA" ToRole="ATENCION" />
-          <NavigationProperty Name="MEDIO_DE_PAGO" Relationship="Self.FK_Boleta_Medio_de_pago" FromRole="BOLETA" ToRole="MEDIO_DE_PAGO" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="id_mesa" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Restaurante_mesa" Relationship="Self.Restaurante_atencion_id_mesa_63ef4a5b_fk_Restaurante_mesa_id" FromRole="Restaurante_atencion" ToRole="Restaurante_mesa" />
+          <NavigationProperty Name="Restaurante_boleta" Relationship="Self.Restaurante_boleta_id_atencion_0d4577de_fk_Restaurante_atencion_id" FromRole="Restaurante_atencion" ToRole="Restaurante_boleta" />
+          <NavigationProperty Name="Restaurante_pedido" Relationship="Self.Restaurante_pedido_id_atencion_9e8a274f_fk_Restaurante_atencion_id" FromRole="Restaurante_atencion" ToRole="Restaurante_pedido" />
         </EntityType>
-        <EntityType Name="CATEGORIA">
+        <EntityType Name="Restaurante_boleta">
           <Key>
-            <PropertyRef Name="id_categoria" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_categoria" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="slug" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_emision" Type="DateTime" Precision="7" />
+          <Property Name="valor_total" Type="Int32" />
+          <Property Name="id_atencion" Type="Int64" />
+          <Property Name="id_medio_de_pago" Type="Int64" />
+          <NavigationProperty Name="Restaurante_atencion" Relationship="Self.Restaurante_boleta_id_atencion_0d4577de_fk_Restaurante_atencion_id" FromRole="Restaurante_boleta" ToRole="Restaurante_atencion" />
+          <NavigationProperty Name="Restaurante_mediodepago" Relationship="Self.Restaurante_boleta_id_medio_de_pago_a951d242_fk_Restaurante_mediodepago_id" FromRole="Restaurante_boleta" ToRole="Restaurante_mediodepago" />
+        </EntityType>
+        <EntityType Name="Restaurante_categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="img_categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PREPARACION" Relationship="Self.FK_Plato_Categoria" FromRole="CATEGORIA" ToRole="PREPARACION" />
+          <NavigationProperty Name="Restaurante_preparacion" Relationship="Self.Restaurante_preparacion_id_categoria_7e1abc18_fk_Restaurante_categoria_id" FromRole="Restaurante_categoria" ToRole="Restaurante_preparacion" />
         </EntityType>
-        <EntityType Name="CATEGORIA_INSUMO">
+        <EntityType Name="Restaurante_categoriainsumo">
           <Key>
-            <PropertyRef Name="id_categoria" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_categoria" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="INSUMO" Relationship="Self.FK_INSUMO_CATEGORIA_INSUMO" FromRole="CATEGORIA_INSUMO" ToRole="INSUMO" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Restaurante_insumo" Relationship="Self.Restaurante_insumo_id_categoria_7d20876c_fk_Restaurante_categoriainsumo_id" FromRole="Restaurante_categoriainsumo" ToRole="Restaurante_insumo" />
         </EntityType>
-        <EntityType Name="DETALLE_ORDEN">
+        <EntityType Name="Restaurante_detalleorden">
           <Key>
-            <PropertyRef Name="id_detalle_orden" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_detalle_orden" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="cantidad" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="u_medida" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="id_orden" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="id_insumo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="estado" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ESTADO_ORDEN" Relationship="Self.FK_DETALLE_ORDEN_ESTADO_ORDEN" FromRole="DETALLE_ORDEN" ToRole="ESTADO_ORDEN" />
-          <NavigationProperty Name="INSUMO" Relationship="Self.FK_DETALLE_ORDEN_INSUMO" FromRole="DETALLE_ORDEN" ToRole="INSUMO" />
-          <NavigationProperty Name="ORDEN" Relationship="Self.FK_DETALLE_ORDEN_ORDEN" FromRole="DETALLE_ORDEN" ToRole="ORDEN" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="u_medida" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="precio_unitario" Type="Int32" />
+          <Property Name="monto_total" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int64" Nullable="false" />
+          <Property Name="id_insumo" Type="Int64" Nullable="false" />
+          <Property Name="id_orden" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Restaurante_estadoorden" Relationship="Self.Restaurante_detalleorden_estado_b99d3176_fk_Restaurante_estadoorden_id" FromRole="Restaurante_detalleorden" ToRole="Restaurante_estadoorden" />
+          <NavigationProperty Name="Restaurante_insumo" Relationship="Self.Restaurante_detalleorden_id_insumo_48912d33_fk_Restaurante_insumo_id" FromRole="Restaurante_detalleorden" ToRole="Restaurante_insumo" />
+          <NavigationProperty Name="Restaurante_orden" Relationship="Self.Restaurante_detalleorden_id_orden_fdddcffd_fk_Restaurante_orden_id" FromRole="Restaurante_detalleorden" ToRole="Restaurante_orden" />
         </EntityType>
-        <EntityType Name="ESTADO_MESA">
+        <EntityType Name="Restaurante_estadomesa">
           <Key>
-            <PropertyRef Name="estado" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="estado" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="MESA" Relationship="Self.FK_MESA_ESTADO_MESA1" FromRole="ESTADO_MESA" ToRole="MESA" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Restaurante_mesa" Relationship="Self.Restaurante_mesa_estado_3a404b54_fk_Restaurante_estadomesa_id" FromRole="Restaurante_estadomesa" ToRole="Restaurante_mesa" />
         </EntityType>
-        <EntityType Name="ESTADO_ORDEN">
+        <EntityType Name="Restaurante_estadoorden">
           <Key>
-            <PropertyRef Name="estado" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="estado" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="DETALLE_ORDEN" Relationship="Self.FK_DETALLE_ORDEN_ESTADO_ORDEN" FromRole="ESTADO_ORDEN" ToRole="DETALLE_ORDEN" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Restaurante_detalleorden" Relationship="Self.Restaurante_detalleorden_estado_b99d3176_fk_Restaurante_estadoorden_id" FromRole="Restaurante_estadoorden" ToRole="Restaurante_detalleorden" />
         </EntityType>
-        <EntityType Name="ESTADO_RESERVA">
+        <EntityType Name="Restaurante_estadoreserva">
           <Key>
-            <PropertyRef Name="estado" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="estado" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="RESERVA" Relationship="Self.FK_RESERVA_ESTADO_RESERVA" FromRole="ESTADO_RESERVA" ToRole="RESERVA" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Restaurante_reserva" Relationship="Self.Restaurante_reserva_estado_7107949c_fk_Restaurante_estadoreserva_id" FromRole="Restaurante_estadoreserva" ToRole="Restaurante_reserva" />
         </EntityType>
-        <EntityType Name="INSUMO">
+        <EntityType Name="Restaurante_insumo">
           <Key>
-            <PropertyRef Name="id_insumo" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_insumo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
-          <Property Name="stock" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="fecha_abastecimiento" Type="DateTime" Precision="3" />
-          <Property Name="id_prov" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="id_marca" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="id_categoria" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="CATEGORIA_INSUMO" Relationship="Self.FK_INSUMO_CATEGORIA_INSUMO" FromRole="INSUMO" ToRole="CATEGORIA_INSUMO" />
-          <NavigationProperty Name="DETALLE_ORDEN" Relationship="Self.FK_DETALLE_ORDEN_INSUMO" FromRole="INSUMO" ToRole="DETALLE_ORDEN" />
-          <NavigationProperty Name="MARCA" Relationship="Self.FK_Insumo_Marca" FromRole="INSUMO" ToRole="MARCA" />
-          <NavigationProperty Name="PROVEEDOR" Relationship="Self.FK_Insumo_Proveedor" FromRole="INSUMO" ToRole="PROVEEDOR" />
-          <NavigationProperty Name="RECETA" Relationship="Self.FK_Receta_Insumo" FromRole="INSUMO" ToRole="RECETA" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="fecha_abastecimiento" Type="DateTime" Precision="7" />
+          <Property Name="id_categoria" Type="Int64" Nullable="false" />
+          <Property Name="id_marca" Type="Int64" />
+          <Property Name="id_prov" Type="Int64" />
+          <NavigationProperty Name="Restaurante_categoriainsumo" Relationship="Self.Restaurante_insumo_id_categoria_7d20876c_fk_Restaurante_categoriainsumo_id" FromRole="Restaurante_insumo" ToRole="Restaurante_categoriainsumo" />
+          <NavigationProperty Name="Restaurante_detalleorden" Relationship="Self.Restaurante_detalleorden_id_insumo_48912d33_fk_Restaurante_insumo_id" FromRole="Restaurante_insumo" ToRole="Restaurante_detalleorden" />
+          <NavigationProperty Name="Restaurante_marca" Relationship="Self.Restaurante_insumo_id_marca_0d79c410_fk_Restaurante_marca_id" FromRole="Restaurante_insumo" ToRole="Restaurante_marca" />
+          <NavigationProperty Name="Restaurante_proveedor" Relationship="Self.Restaurante_insumo_id_prov_fa01e380_fk_Restaurante_proveedor_id" FromRole="Restaurante_insumo" ToRole="Restaurante_proveedor" />
+          <NavigationProperty Name="Restaurante_receta" Relationship="Self.Restaurante_receta_id_insumo_e03998d5_fk_Restaurante_insumo_id" FromRole="Restaurante_insumo" ToRole="Restaurante_receta" />
         </EntityType>
-        <EntityType Name="MARCA">
+        <EntityType Name="Restaurante_marca">
           <Key>
-            <PropertyRef Name="id_marca" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_marca" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="INSUMO" Relationship="Self.FK_Insumo_Marca" FromRole="MARCA" ToRole="INSUMO" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Restaurante_insumo" Relationship="Self.Restaurante_insumo_id_marca_0d79c410_fk_Restaurante_marca_id" FromRole="Restaurante_marca" ToRole="Restaurante_insumo" />
         </EntityType>
-        <EntityType Name="MEDIO_DE_PAGO">
+        <EntityType Name="Restaurante_mediodepago">
           <Key>
-            <PropertyRef Name="id_medio_pago" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_medio_pago" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="tipo_de_pago" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="BOLETA" Relationship="Self.FK_Boleta_Medio_de_pago" FromRole="MEDIO_DE_PAGO" ToRole="BOLETA" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo_de_pago" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Restaurante_boleta" Relationship="Self.Restaurante_boleta_id_medio_de_pago_a951d242_fk_Restaurante_mediodepago_id" FromRole="Restaurante_mediodepago" ToRole="Restaurante_boleta" />
         </EntityType>
-        <EntityType Name="MESA">
+        <EntityType Name="Restaurante_mesa">
           <Key>
-            <PropertyRef Name="id_mesa" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_mesa" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="id_usuario" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="estado" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
-          <Property Name="ubicacion" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
-          <Property Name="capacidad" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="ATENCION" Relationship="Self.FK_ATENCION_MESA" FromRole="MESA" ToRole="ATENCION" />
-          <NavigationProperty Name="ESTADO_MESA" Relationship="Self.FK_MESA_ESTADO_MESA1" FromRole="MESA" ToRole="ESTADO_MESA" />
-          <NavigationProperty Name="USUARIO" Relationship="Self.FK_Mesa_Usuario" FromRole="MESA" ToRole="USUARIO" />
-          <NavigationProperty Name="RESERVA" Relationship="Self.FK_RESERVA_MESA" FromRole="MESA" ToRole="RESERVA" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="capacidad" Type="Int32" />
+          <Property Name="estado" Type="Int64" />
+          <Property Name="id_usuario" Type="Int64" />
+          <NavigationProperty Name="Restaurante_atencion" Relationship="Self.Restaurante_atencion_id_mesa_63ef4a5b_fk_Restaurante_mesa_id" FromRole="Restaurante_mesa" ToRole="Restaurante_atencion" />
+          <NavigationProperty Name="Restaurante_estadomesa" Relationship="Self.Restaurante_mesa_estado_3a404b54_fk_Restaurante_estadomesa_id" FromRole="Restaurante_mesa" ToRole="Restaurante_estadomesa" />
+          <NavigationProperty Name="Restaurante_usuario" Relationship="Self.Restaurante_mesa_id_usuario_f99337c9_fk_Restaurante_usuario_id" FromRole="Restaurante_mesa" ToRole="Restaurante_usuario" />
+          <NavigationProperty Name="Restaurante_reserva" Relationship="Self.Restaurante_reserva_id_mesa_be5b365f_fk_Restaurante_mesa_id" FromRole="Restaurante_mesa" ToRole="Restaurante_reserva" />
         </EntityType>
-        <EntityType Name="ORDEN">
+        <EntityType Name="Restaurante_orden">
           <Key>
-            <PropertyRef Name="id_orden" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_orden" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="fecha_orden" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="DETALLE_ORDEN" Relationship="Self.FK_DETALLE_ORDEN_ORDEN" FromRole="ORDEN" ToRole="DETALLE_ORDEN" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_orden" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Restaurante_detalleorden" Relationship="Self.Restaurante_detalleorden_id_orden_fdddcffd_fk_Restaurante_orden_id" FromRole="Restaurante_orden" ToRole="Restaurante_detalleorden" />
         </EntityType>
-        <EntityType Name="PEDIDO">
+        <EntityType Name="Restaurante_pedido">
           <Key>
-            <PropertyRef Name="id_pedido" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_atencion" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="id_mesa" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="id_preparacion" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="fecha" Type="DateTime" Precision="3" />
-          <Property Name="cantidad" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="total" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="id_pedido" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ATENCION" Relationship="Self.FK_Pedido_Atencion" FromRole="PEDIDO" ToRole="ATENCION" />
-          <NavigationProperty Name="PREPARACION" Relationship="Self.FK_Pedido_Plato" FromRole="PEDIDO" ToRole="PREPARACION" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_mesa" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Precision="7" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="total" Type="Int32" />
+          <Property Name="entregado" Type="Boolean" />
+          <Property Name="id_atencion" Type="Int64" Nullable="false" />
+          <Property Name="id_preparacion" Type="Int64" />
+          <NavigationProperty Name="Restaurante_atencion" Relationship="Self.Restaurante_pedido_id_atencion_9e8a274f_fk_Restaurante_atencion_id" FromRole="Restaurante_pedido" ToRole="Restaurante_atencion" />
+          <NavigationProperty Name="Restaurante_preparacion" Relationship="Self.Restaurante_pedido_id_preparacion_a90e6494_fk_Restaurante_preparacion_id" FromRole="Restaurante_pedido" ToRole="Restaurante_preparacion" />
         </EntityType>
-        <EntityType Name="PREPARACION">
+        <EntityType Name="Restaurante_preparacion">
           <Key>
-            <PropertyRef Name="id_preparacion" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_preparacion" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="nombre_receta" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="precio" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="id_categoria" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="img_preparacion" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
-          <Property Name="slug" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CATEGORIA" Relationship="Self.FK_Plato_Categoria" FromRole="PREPARACION" ToRole="CATEGORIA" />
-          <NavigationProperty Name="PEDIDO" Relationship="Self.FK_Pedido_Plato" FromRole="PREPARACION" ToRole="PEDIDO" />
-          <NavigationProperty Name="RECETA" Relationship="Self.FK_Receta_Preparacion" FromRole="PREPARACION" ToRole="RECETA" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_receta" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="precio" Type="Int32" />
+          <Property Name="img_preparacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="modo_prep" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="id_categoria" Type="Int64" />
+          <Property Name="minuto_prep" Type="Int64" />
+          <NavigationProperty Name="Restaurante_categoria" Relationship="Self.Restaurante_preparacion_id_categoria_7e1abc18_fk_Restaurante_categoria_id" FromRole="Restaurante_preparacion" ToRole="Restaurante_categoria" />
+          <NavigationProperty Name="Restaurante_pedido" Relationship="Self.Restaurante_pedido_id_preparacion_a90e6494_fk_Restaurante_preparacion_id" FromRole="Restaurante_preparacion" ToRole="Restaurante_pedido" />
+          <NavigationProperty Name="Restaurante_receta" Relationship="Self.Restaurante_receta_id_preparacion_81dc7866_fk_Restaurante_preparacion_id" FromRole="Restaurante_preparacion" ToRole="Restaurante_receta" />
         </EntityType>
-        <EntityType Name="PROVEEDOR">
+        <EntityType Name="Restaurante_proveedor">
           <Key>
-            <PropertyRef Name="id_proveedor" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_proveedor" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="INSUMO" Relationship="Self.FK_Insumo_Proveedor" FromRole="PROVEEDOR" ToRole="INSUMO" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Restaurante_insumo" Relationship="Self.Restaurante_insumo_id_prov_fa01e380_fk_Restaurante_proveedor_id" FromRole="Restaurante_proveedor" ToRole="Restaurante_insumo" />
         </EntityType>
-        <EntityType Name="RECETA">
+        <EntityType Name="Restaurante_receta">
           <Key>
-            <PropertyRef Name="id_receta" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_preparacion" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="id_insumo" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="porcion" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="u_medida" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
-          <Property Name="id_receta" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="INSUMO" Relationship="Self.FK_Receta_Insumo" FromRole="RECETA" ToRole="INSUMO" />
-          <NavigationProperty Name="PREPARACION" Relationship="Self.FK_Receta_Preparacion" FromRole="RECETA" ToRole="PREPARACION" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="porcion" Type="Int32" />
+          <Property Name="u_medida" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="id_insumo" Type="Int64" />
+          <Property Name="id_preparacion" Type="Int64" />
+          <NavigationProperty Name="Restaurante_insumo" Relationship="Self.Restaurante_receta_id_insumo_e03998d5_fk_Restaurante_insumo_id" FromRole="Restaurante_receta" ToRole="Restaurante_insumo" />
+          <NavigationProperty Name="Restaurante_preparacion" Relationship="Self.Restaurante_receta_id_preparacion_81dc7866_fk_Restaurante_preparacion_id" FromRole="Restaurante_receta" ToRole="Restaurante_preparacion" />
         </EntityType>
-        <EntityType Name="RESERVA">
+        <EntityType Name="Restaurante_reserva">
           <Key>
-            <PropertyRef Name="id_reserva" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_reserva" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="nombre_cliente" Type="String" MaxLength="30" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="id_mesa" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="estado" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ESTADO_RESERVA" Relationship="Self.FK_RESERVA_ESTADO_RESERVA" FromRole="RESERVA" ToRole="ESTADO_RESERVA" />
-          <NavigationProperty Name="MESA" Relationship="Self.FK_RESERVA_MESA" FromRole="RESERVA" ToRole="MESA" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_cliente" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="telefono" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="estado" Type="Int64" Nullable="false" />
+          <Property Name="id_mesa" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Restaurante_estadoreserva" Relationship="Self.Restaurante_reserva_estado_7107949c_fk_Restaurante_estadoreserva_id" FromRole="Restaurante_reserva" ToRole="Restaurante_estadoreserva" />
+          <NavigationProperty Name="Restaurante_mesa" Relationship="Self.Restaurante_reserva_id_mesa_be5b365f_fk_Restaurante_mesa_id" FromRole="Restaurante_reserva" ToRole="Restaurante_mesa" />
         </EntityType>
-        <EntityType Name="ROL">
+        <EntityType Name="Restaurante_rol">
           <Key>
-            <PropertyRef Name="id_rol" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_rol" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="rol1" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="USUARIO" Relationship="Self.FK_Usuario_Rol" FromRole="ROL" ToRole="USUARIO" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rol" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Restaurante_usuario" Relationship="Self.Restaurante_usuario_id_rol_09d6796e_fk_Restaurante_rol_id" FromRole="Restaurante_rol" ToRole="Restaurante_usuario" />
         </EntityType>
-        <EntityType Name="USUARIO">
+        <EntityType Name="Restaurante_usuario">
           <Key>
-            <PropertyRef Name="id_usuario" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="id_usuario" Type="String" MaxLength="18" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="rut" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
-          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="apellido_p" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="apellido_m" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="id_rol" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
-          <Property Name="correo" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="MESA" Relationship="Self.FK_Mesa_Usuario" FromRole="USUARIO" ToRole="MESA" />
-          <NavigationProperty Name="ROL" Relationship="Self.FK_Usuario_Rol" FromRole="USUARIO" ToRole="ROL" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rut" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="apellido_p" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="apellido_m" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id_rol" Type="Int64" />
+          <NavigationProperty Name="Restaurante_mesa" Relationship="Self.Restaurante_mesa_id_usuario_f99337c9_fk_Restaurante_usuario_id" FromRole="Restaurante_usuario" ToRole="Restaurante_mesa" />
+          <NavigationProperty Name="Restaurante_rol" Relationship="Self.Restaurante_usuario_id_rol_09d6796e_fk_Restaurante_rol_id" FromRole="Restaurante_usuario" ToRole="Restaurante_rol" />
         </EntityType>
-        <Association Name="FK_ATENCION_MESA">
-          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
-          <End Role="ATENCION" Type="Self.ATENCION" Multiplicity="*" />
+        <Association Name="Restaurante_atencion_id_mesa_63ef4a5b_fk_Restaurante_mesa_id">
+          <End Role="Restaurante_mesa" Type="Self.Restaurante_mesa" Multiplicity="1" />
+          <End Role="Restaurante_atencion" Type="Self.Restaurante_atencion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MESA">
+            <Principal Role="Restaurante_mesa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_atencion">
               <PropertyRef Name="id_mesa" />
-            </Principal>
-            <Dependent Role="ATENCION">
-              <PropertyRef Name="id_mesa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Boleta_Atencion">
-          <End Role="ATENCION" Type="Self.ATENCION" Multiplicity="0..1" />
-          <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="*" />
+        <Association Name="Restaurante_boleta_id_atencion_0d4577de_fk_Restaurante_atencion_id">
+          <End Role="Restaurante_atencion" Type="Self.Restaurante_atencion" Multiplicity="0..1" />
+          <End Role="Restaurante_boleta" Type="Self.Restaurante_boleta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ATENCION">
-              <PropertyRef Name="id_atencion" />
+            <Principal Role="Restaurante_atencion">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="BOLETA">
-              <PropertyRef Name="id_atencion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Pedido_Atencion">
-          <End Role="ATENCION" Type="Self.ATENCION" Multiplicity="1" />
-          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ATENCION">
-              <PropertyRef Name="id_atencion" />
-            </Principal>
-            <Dependent Role="PEDIDO">
+            <Dependent Role="Restaurante_boleta">
               <PropertyRef Name="id_atencion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Boleta_Medio_de_pago">
-          <End Role="MEDIO_DE_PAGO" Type="Self.MEDIO_DE_PAGO" Multiplicity="0..1" />
-          <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="*" />
+        <Association Name="Restaurante_pedido_id_atencion_9e8a274f_fk_Restaurante_atencion_id">
+          <End Role="Restaurante_atencion" Type="Self.Restaurante_atencion" Multiplicity="1" />
+          <End Role="Restaurante_pedido" Type="Self.Restaurante_pedido" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MEDIO_DE_PAGO">
-              <PropertyRef Name="id_medio_pago" />
+            <Principal Role="Restaurante_atencion">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="BOLETA">
+            <Dependent Role="Restaurante_pedido">
+              <PropertyRef Name="id_atencion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Restaurante_boleta_id_medio_de_pago_a951d242_fk_Restaurante_mediodepago_id">
+          <End Role="Restaurante_mediodepago" Type="Self.Restaurante_mediodepago" Multiplicity="0..1" />
+          <End Role="Restaurante_boleta" Type="Self.Restaurante_boleta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurante_mediodepago">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_boleta">
               <PropertyRef Name="id_medio_de_pago" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Plato_Categoria">
-          <End Role="CATEGORIA" Type="Self.CATEGORIA" Multiplicity="0..1" />
-          <End Role="PREPARACION" Type="Self.PREPARACION" Multiplicity="*" />
+        <Association Name="Restaurante_preparacion_id_categoria_7e1abc18_fk_Restaurante_categoria_id">
+          <End Role="Restaurante_categoria" Type="Self.Restaurante_categoria" Multiplicity="0..1" />
+          <End Role="Restaurante_preparacion" Type="Self.Restaurante_preparacion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CATEGORIA">
-              <PropertyRef Name="id_categoria" />
+            <Principal Role="Restaurante_categoria">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="PREPARACION">
+            <Dependent Role="Restaurante_preparacion">
               <PropertyRef Name="id_categoria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_INSUMO_CATEGORIA_INSUMO">
-          <End Role="CATEGORIA_INSUMO" Type="Self.CATEGORIA_INSUMO" Multiplicity="1" />
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="*" />
+        <Association Name="Restaurante_insumo_id_categoria_7d20876c_fk_Restaurante_categoriainsumo_id">
+          <End Role="Restaurante_categoriainsumo" Type="Self.Restaurante_categoriainsumo" Multiplicity="1" />
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CATEGORIA_INSUMO">
-              <PropertyRef Name="id_categoria" />
+            <Principal Role="Restaurante_categoriainsumo">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="INSUMO">
+            <Dependent Role="Restaurante_insumo">
               <PropertyRef Name="id_categoria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_ORDEN_ESTADO_ORDEN">
-          <End Role="ESTADO_ORDEN" Type="Self.ESTADO_ORDEN" Multiplicity="1" />
-          <End Role="DETALLE_ORDEN" Type="Self.DETALLE_ORDEN" Multiplicity="*" />
+        <Association Name="Restaurante_detalleorden_estado_b99d3176_fk_Restaurante_estadoorden_id">
+          <End Role="Restaurante_estadoorden" Type="Self.Restaurante_estadoorden" Multiplicity="1" />
+          <End Role="Restaurante_detalleorden" Type="Self.Restaurante_detalleorden" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ESTADO_ORDEN">
+            <Principal Role="Restaurante_estadoorden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_detalleorden">
               <PropertyRef Name="estado" />
-            </Principal>
-            <Dependent Role="DETALLE_ORDEN">
-              <PropertyRef Name="estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_ORDEN_INSUMO">
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="1" />
-          <End Role="DETALLE_ORDEN" Type="Self.DETALLE_ORDEN" Multiplicity="*" />
+        <Association Name="Restaurante_detalleorden_id_insumo_48912d33_fk_Restaurante_insumo_id">
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="1" />
+          <End Role="Restaurante_detalleorden" Type="Self.Restaurante_detalleorden" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INSUMO">
+            <Principal Role="Restaurante_insumo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_detalleorden">
               <PropertyRef Name="id_insumo" />
-            </Principal>
-            <Dependent Role="DETALLE_ORDEN">
-              <PropertyRef Name="id_insumo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_ORDEN_ORDEN">
-          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="1" />
-          <End Role="DETALLE_ORDEN" Type="Self.DETALLE_ORDEN" Multiplicity="*" />
+        <Association Name="Restaurante_detalleorden_id_orden_fdddcffd_fk_Restaurante_orden_id">
+          <End Role="Restaurante_orden" Type="Self.Restaurante_orden" Multiplicity="1" />
+          <End Role="Restaurante_detalleorden" Type="Self.Restaurante_detalleorden" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ORDEN">
-              <PropertyRef Name="id_orden" />
+            <Principal Role="Restaurante_orden">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="DETALLE_ORDEN">
+            <Dependent Role="Restaurante_detalleorden">
               <PropertyRef Name="id_orden" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MESA_ESTADO_MESA1">
-          <End Role="ESTADO_MESA" Type="Self.ESTADO_MESA" Multiplicity="0..1" />
-          <End Role="MESA" Type="Self.MESA" Multiplicity="*" />
+        <Association Name="Restaurante_mesa_estado_3a404b54_fk_Restaurante_estadomesa_id">
+          <End Role="Restaurante_estadomesa" Type="Self.Restaurante_estadomesa" Multiplicity="0..1" />
+          <End Role="Restaurante_mesa" Type="Self.Restaurante_mesa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ESTADO_MESA">
-              <PropertyRef Name="estado" />
+            <Principal Role="Restaurante_estadomesa">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="MESA">
+            <Dependent Role="Restaurante_mesa">
               <PropertyRef Name="estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RESERVA_ESTADO_RESERVA">
-          <End Role="ESTADO_RESERVA" Type="Self.ESTADO_RESERVA" Multiplicity="1" />
-          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
+        <Association Name="Restaurante_reserva_estado_7107949c_fk_Restaurante_estadoreserva_id">
+          <End Role="Restaurante_estadoreserva" Type="Self.Restaurante_estadoreserva" Multiplicity="1" />
+          <End Role="Restaurante_reserva" Type="Self.Restaurante_reserva" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ESTADO_RESERVA">
-              <PropertyRef Name="estado" />
+            <Principal Role="Restaurante_estadoreserva">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="RESERVA">
+            <Dependent Role="Restaurante_reserva">
               <PropertyRef Name="estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Insumo_Marca">
-          <End Role="MARCA" Type="Self.MARCA" Multiplicity="0..1" />
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="*" />
+        <Association Name="Restaurante_insumo_id_marca_0d79c410_fk_Restaurante_marca_id">
+          <End Role="Restaurante_marca" Type="Self.Restaurante_marca" Multiplicity="0..1" />
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MARCA">
+            <Principal Role="Restaurante_marca">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_insumo">
               <PropertyRef Name="id_marca" />
-            </Principal>
-            <Dependent Role="INSUMO">
-              <PropertyRef Name="id_marca" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Insumo_Proveedor">
-          <End Role="PROVEEDOR" Type="Self.PROVEEDOR" Multiplicity="0..1" />
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="*" />
+        <Association Name="Restaurante_insumo_id_prov_fa01e380_fk_Restaurante_proveedor_id">
+          <End Role="Restaurante_proveedor" Type="Self.Restaurante_proveedor" Multiplicity="0..1" />
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PROVEEDOR">
-              <PropertyRef Name="id_proveedor" />
+            <Principal Role="Restaurante_proveedor">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="INSUMO">
+            <Dependent Role="Restaurante_insumo">
               <PropertyRef Name="id_prov" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Receta_Insumo">
-          <End Role="INSUMO" Type="Self.INSUMO" Multiplicity="0..1" />
-          <End Role="RECETA" Type="Self.RECETA" Multiplicity="*" />
+        <Association Name="Restaurante_receta_id_insumo_e03998d5_fk_Restaurante_insumo_id">
+          <End Role="Restaurante_insumo" Type="Self.Restaurante_insumo" Multiplicity="0..1" />
+          <End Role="Restaurante_receta" Type="Self.Restaurante_receta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="INSUMO">
+            <Principal Role="Restaurante_insumo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_receta">
               <PropertyRef Name="id_insumo" />
-            </Principal>
-            <Dependent Role="RECETA">
-              <PropertyRef Name="id_insumo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Mesa_Usuario">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
-          <End Role="MESA" Type="Self.MESA" Multiplicity="*" />
+        <Association Name="Restaurante_mesa_id_usuario_f99337c9_fk_Restaurante_usuario_id">
+          <End Role="Restaurante_usuario" Type="Self.Restaurante_usuario" Multiplicity="0..1" />
+          <End Role="Restaurante_mesa" Type="Self.Restaurante_mesa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="id_usuario" />
+            <Principal Role="Restaurante_usuario">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="MESA">
+            <Dependent Role="Restaurante_mesa">
               <PropertyRef Name="id_usuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RESERVA_MESA">
-          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
-          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
+        <Association Name="Restaurante_reserva_id_mesa_be5b365f_fk_Restaurante_mesa_id">
+          <End Role="Restaurante_mesa" Type="Self.Restaurante_mesa" Multiplicity="1" />
+          <End Role="Restaurante_reserva" Type="Self.Restaurante_reserva" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="MESA">
+            <Principal Role="Restaurante_mesa">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_reserva">
               <PropertyRef Name="id_mesa" />
-            </Principal>
-            <Dependent Role="RESERVA">
-              <PropertyRef Name="id_mesa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Pedido_Plato">
-          <End Role="PREPARACION" Type="Self.PREPARACION" Multiplicity="0..1" />
-          <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
+        <Association Name="Restaurante_pedido_id_preparacion_a90e6494_fk_Restaurante_preparacion_id">
+          <End Role="Restaurante_preparacion" Type="Self.Restaurante_preparacion" Multiplicity="0..1" />
+          <End Role="Restaurante_pedido" Type="Self.Restaurante_pedido" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PREPARACION">
-              <PropertyRef Name="id_preparacion" />
+            <Principal Role="Restaurante_preparacion">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="PEDIDO">
-              <PropertyRef Name="id_preparacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Receta_Preparacion">
-          <End Role="PREPARACION" Type="Self.PREPARACION" Multiplicity="0..1" />
-          <End Role="RECETA" Type="Self.RECETA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PREPARACION">
-              <PropertyRef Name="id_preparacion" />
-            </Principal>
-            <Dependent Role="RECETA">
+            <Dependent Role="Restaurante_pedido">
               <PropertyRef Name="id_preparacion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Usuario_Rol">
-          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+        <Association Name="Restaurante_receta_id_preparacion_81dc7866_fk_Restaurante_preparacion_id">
+          <End Role="Restaurante_preparacion" Type="Self.Restaurante_preparacion" Multiplicity="0..1" />
+          <End Role="Restaurante_receta" Type="Self.Restaurante_receta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ROL">
-              <PropertyRef Name="id_rol" />
+            <Principal Role="Restaurante_preparacion">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="USUARIO">
+            <Dependent Role="Restaurante_receta">
+              <PropertyRef Name="id_preparacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Restaurante_usuario_id_rol_09d6796e_fk_Restaurante_rol_id">
+          <End Role="Restaurante_rol" Type="Self.Restaurante_rol" Multiplicity="0..1" />
+          <End Role="Restaurante_usuario" Type="Self.Restaurante_usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurante_rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Restaurante_usuario">
               <PropertyRef Name="id_rol" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Restaurante_Siglo_XXIEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ATENCION" EntityType="Self.ATENCION" />
-          <EntitySet Name="BOLETA" EntityType="Self.BOLETA" />
-          <EntitySet Name="CATEGORIA" EntityType="Self.CATEGORIA" />
-          <EntitySet Name="CATEGORIA_INSUMO" EntityType="Self.CATEGORIA_INSUMO" />
-          <EntitySet Name="DETALLE_ORDEN" EntityType="Self.DETALLE_ORDEN" />
-          <EntitySet Name="ESTADO_MESA" EntityType="Self.ESTADO_MESA" />
-          <EntitySet Name="ESTADO_ORDEN" EntityType="Self.ESTADO_ORDEN" />
-          <EntitySet Name="ESTADO_RESERVA" EntityType="Self.ESTADO_RESERVA" />
-          <EntitySet Name="INSUMO" EntityType="Self.INSUMO" />
-          <EntitySet Name="MARCA" EntityType="Self.MARCA" />
-          <EntitySet Name="MEDIO_DE_PAGO" EntityType="Self.MEDIO_DE_PAGO" />
-          <EntitySet Name="MESA" EntityType="Self.MESA" />
-          <EntitySet Name="ORDEN" EntityType="Self.ORDEN" />
-          <EntitySet Name="PEDIDO" EntityType="Self.PEDIDO" />
-          <EntitySet Name="PREPARACION" EntityType="Self.PREPARACION" />
-          <EntitySet Name="PROVEEDOR" EntityType="Self.PROVEEDOR" />
-          <EntitySet Name="RECETA" EntityType="Self.RECETA" />
-          <EntitySet Name="RESERVA" EntityType="Self.RESERVA" />
-          <EntitySet Name="ROL" EntityType="Self.ROL" />
-          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
-          <AssociationSet Name="FK_ATENCION_MESA" Association="Self.FK_ATENCION_MESA">
-            <End Role="MESA" EntitySet="MESA" />
-            <End Role="ATENCION" EntitySet="ATENCION" />
+        <EntityContainer Name="RestauranteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="auth_user" EntityType="Self.auth_user" />
+          <EntitySet Name="Restaurante_atencion" EntityType="Self.Restaurante_atencion" />
+          <EntitySet Name="Restaurante_boleta" EntityType="Self.Restaurante_boleta" />
+          <EntitySet Name="Restaurante_categoria" EntityType="Self.Restaurante_categoria" />
+          <EntitySet Name="Restaurante_categoriainsumo" EntityType="Self.Restaurante_categoriainsumo" />
+          <EntitySet Name="Restaurante_detalleorden" EntityType="Self.Restaurante_detalleorden" />
+          <EntitySet Name="Restaurante_estadomesa" EntityType="Self.Restaurante_estadomesa" />
+          <EntitySet Name="Restaurante_estadoorden" EntityType="Self.Restaurante_estadoorden" />
+          <EntitySet Name="Restaurante_estadoreserva" EntityType="Self.Restaurante_estadoreserva" />
+          <EntitySet Name="Restaurante_insumo" EntityType="Self.Restaurante_insumo" />
+          <EntitySet Name="Restaurante_marca" EntityType="Self.Restaurante_marca" />
+          <EntitySet Name="Restaurante_mediodepago" EntityType="Self.Restaurante_mediodepago" />
+          <EntitySet Name="Restaurante_mesa" EntityType="Self.Restaurante_mesa" />
+          <EntitySet Name="Restaurante_orden" EntityType="Self.Restaurante_orden" />
+          <EntitySet Name="Restaurante_pedido" EntityType="Self.Restaurante_pedido" />
+          <EntitySet Name="Restaurante_preparacion" EntityType="Self.Restaurante_preparacion" />
+          <EntitySet Name="Restaurante_proveedor" EntityType="Self.Restaurante_proveedor" />
+          <EntitySet Name="Restaurante_receta" EntityType="Self.Restaurante_receta" />
+          <EntitySet Name="Restaurante_reserva" EntityType="Self.Restaurante_reserva" />
+          <EntitySet Name="Restaurante_rol" EntityType="Self.Restaurante_rol" />
+          <EntitySet Name="Restaurante_usuario" EntityType="Self.Restaurante_usuario" />
+          <AssociationSet Name="Restaurante_atencion_id_mesa_63ef4a5b_fk_Restaurante_mesa_id" Association="Self.Restaurante_atencion_id_mesa_63ef4a5b_fk_Restaurante_mesa_id">
+            <End Role="Restaurante_mesa" EntitySet="Restaurante_mesa" />
+            <End Role="Restaurante_atencion" EntitySet="Restaurante_atencion" />
           </AssociationSet>
-          <AssociationSet Name="FK_Boleta_Atencion" Association="Self.FK_Boleta_Atencion">
-            <End Role="ATENCION" EntitySet="ATENCION" />
-            <End Role="BOLETA" EntitySet="BOLETA" />
+          <AssociationSet Name="Restaurante_boleta_id_atencion_0d4577de_fk_Restaurante_atencion_id" Association="Self.Restaurante_boleta_id_atencion_0d4577de_fk_Restaurante_atencion_id">
+            <End Role="Restaurante_atencion" EntitySet="Restaurante_atencion" />
+            <End Role="Restaurante_boleta" EntitySet="Restaurante_boleta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pedido_Atencion" Association="Self.FK_Pedido_Atencion">
-            <End Role="ATENCION" EntitySet="ATENCION" />
-            <End Role="PEDIDO" EntitySet="PEDIDO" />
+          <AssociationSet Name="Restaurante_pedido_id_atencion_9e8a274f_fk_Restaurante_atencion_id" Association="Self.Restaurante_pedido_id_atencion_9e8a274f_fk_Restaurante_atencion_id">
+            <End Role="Restaurante_atencion" EntitySet="Restaurante_atencion" />
+            <End Role="Restaurante_pedido" EntitySet="Restaurante_pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK_Boleta_Medio_de_pago" Association="Self.FK_Boleta_Medio_de_pago">
-            <End Role="MEDIO_DE_PAGO" EntitySet="MEDIO_DE_PAGO" />
-            <End Role="BOLETA" EntitySet="BOLETA" />
+          <AssociationSet Name="Restaurante_boleta_id_medio_de_pago_a951d242_fk_Restaurante_mediodepago_id" Association="Self.Restaurante_boleta_id_medio_de_pago_a951d242_fk_Restaurante_mediodepago_id">
+            <End Role="Restaurante_mediodepago" EntitySet="Restaurante_mediodepago" />
+            <End Role="Restaurante_boleta" EntitySet="Restaurante_boleta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Plato_Categoria" Association="Self.FK_Plato_Categoria">
-            <End Role="CATEGORIA" EntitySet="CATEGORIA" />
-            <End Role="PREPARACION" EntitySet="PREPARACION" />
+          <AssociationSet Name="Restaurante_preparacion_id_categoria_7e1abc18_fk_Restaurante_categoria_id" Association="Self.Restaurante_preparacion_id_categoria_7e1abc18_fk_Restaurante_categoria_id">
+            <End Role="Restaurante_categoria" EntitySet="Restaurante_categoria" />
+            <End Role="Restaurante_preparacion" EntitySet="Restaurante_preparacion" />
           </AssociationSet>
-          <AssociationSet Name="FK_INSUMO_CATEGORIA_INSUMO" Association="Self.FK_INSUMO_CATEGORIA_INSUMO">
-            <End Role="CATEGORIA_INSUMO" EntitySet="CATEGORIA_INSUMO" />
-            <End Role="INSUMO" EntitySet="INSUMO" />
+          <AssociationSet Name="Restaurante_insumo_id_categoria_7d20876c_fk_Restaurante_categoriainsumo_id" Association="Self.Restaurante_insumo_id_categoria_7d20876c_fk_Restaurante_categoriainsumo_id">
+            <End Role="Restaurante_categoriainsumo" EntitySet="Restaurante_categoriainsumo" />
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_ORDEN_ESTADO_ORDEN" Association="Self.FK_DETALLE_ORDEN_ESTADO_ORDEN">
-            <End Role="ESTADO_ORDEN" EntitySet="ESTADO_ORDEN" />
-            <End Role="DETALLE_ORDEN" EntitySet="DETALLE_ORDEN" />
+          <AssociationSet Name="Restaurante_detalleorden_estado_b99d3176_fk_Restaurante_estadoorden_id" Association="Self.Restaurante_detalleorden_estado_b99d3176_fk_Restaurante_estadoorden_id">
+            <End Role="Restaurante_estadoorden" EntitySet="Restaurante_estadoorden" />
+            <End Role="Restaurante_detalleorden" EntitySet="Restaurante_detalleorden" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_ORDEN_INSUMO" Association="Self.FK_DETALLE_ORDEN_INSUMO">
-            <End Role="INSUMO" EntitySet="INSUMO" />
-            <End Role="DETALLE_ORDEN" EntitySet="DETALLE_ORDEN" />
+          <AssociationSet Name="Restaurante_detalleorden_id_insumo_48912d33_fk_Restaurante_insumo_id" Association="Self.Restaurante_detalleorden_id_insumo_48912d33_fk_Restaurante_insumo_id">
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
+            <End Role="Restaurante_detalleorden" EntitySet="Restaurante_detalleorden" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_ORDEN_ORDEN" Association="Self.FK_DETALLE_ORDEN_ORDEN">
-            <End Role="ORDEN" EntitySet="ORDEN" />
-            <End Role="DETALLE_ORDEN" EntitySet="DETALLE_ORDEN" />
+          <AssociationSet Name="Restaurante_detalleorden_id_orden_fdddcffd_fk_Restaurante_orden_id" Association="Self.Restaurante_detalleorden_id_orden_fdddcffd_fk_Restaurante_orden_id">
+            <End Role="Restaurante_orden" EntitySet="Restaurante_orden" />
+            <End Role="Restaurante_detalleorden" EntitySet="Restaurante_detalleorden" />
           </AssociationSet>
-          <AssociationSet Name="FK_MESA_ESTADO_MESA1" Association="Self.FK_MESA_ESTADO_MESA1">
-            <End Role="ESTADO_MESA" EntitySet="ESTADO_MESA" />
-            <End Role="MESA" EntitySet="MESA" />
+          <AssociationSet Name="Restaurante_mesa_estado_3a404b54_fk_Restaurante_estadomesa_id" Association="Self.Restaurante_mesa_estado_3a404b54_fk_Restaurante_estadomesa_id">
+            <End Role="Restaurante_estadomesa" EntitySet="Restaurante_estadomesa" />
+            <End Role="Restaurante_mesa" EntitySet="Restaurante_mesa" />
           </AssociationSet>
-          <AssociationSet Name="FK_RESERVA_ESTADO_RESERVA" Association="Self.FK_RESERVA_ESTADO_RESERVA">
-            <End Role="ESTADO_RESERVA" EntitySet="ESTADO_RESERVA" />
-            <End Role="RESERVA" EntitySet="RESERVA" />
+          <AssociationSet Name="Restaurante_reserva_estado_7107949c_fk_Restaurante_estadoreserva_id" Association="Self.Restaurante_reserva_estado_7107949c_fk_Restaurante_estadoreserva_id">
+            <End Role="Restaurante_estadoreserva" EntitySet="Restaurante_estadoreserva" />
+            <End Role="Restaurante_reserva" EntitySet="Restaurante_reserva" />
           </AssociationSet>
-          <AssociationSet Name="FK_Insumo_Marca" Association="Self.FK_Insumo_Marca">
-            <End Role="MARCA" EntitySet="MARCA" />
-            <End Role="INSUMO" EntitySet="INSUMO" />
+          <AssociationSet Name="Restaurante_insumo_id_marca_0d79c410_fk_Restaurante_marca_id" Association="Self.Restaurante_insumo_id_marca_0d79c410_fk_Restaurante_marca_id">
+            <End Role="Restaurante_marca" EntitySet="Restaurante_marca" />
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Insumo_Proveedor" Association="Self.FK_Insumo_Proveedor">
-            <End Role="PROVEEDOR" EntitySet="PROVEEDOR" />
-            <End Role="INSUMO" EntitySet="INSUMO" />
+          <AssociationSet Name="Restaurante_insumo_id_prov_fa01e380_fk_Restaurante_proveedor_id" Association="Self.Restaurante_insumo_id_prov_fa01e380_fk_Restaurante_proveedor_id">
+            <End Role="Restaurante_proveedor" EntitySet="Restaurante_proveedor" />
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Receta_Insumo" Association="Self.FK_Receta_Insumo">
-            <End Role="INSUMO" EntitySet="INSUMO" />
-            <End Role="RECETA" EntitySet="RECETA" />
+          <AssociationSet Name="Restaurante_receta_id_insumo_e03998d5_fk_Restaurante_insumo_id" Association="Self.Restaurante_receta_id_insumo_e03998d5_fk_Restaurante_insumo_id">
+            <End Role="Restaurante_insumo" EntitySet="Restaurante_insumo" />
+            <End Role="Restaurante_receta" EntitySet="Restaurante_receta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Mesa_Usuario" Association="Self.FK_Mesa_Usuario">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="MESA" EntitySet="MESA" />
+          <AssociationSet Name="Restaurante_mesa_id_usuario_f99337c9_fk_Restaurante_usuario_id" Association="Self.Restaurante_mesa_id_usuario_f99337c9_fk_Restaurante_usuario_id">
+            <End Role="Restaurante_usuario" EntitySet="Restaurante_usuario" />
+            <End Role="Restaurante_mesa" EntitySet="Restaurante_mesa" />
           </AssociationSet>
-          <AssociationSet Name="FK_RESERVA_MESA" Association="Self.FK_RESERVA_MESA">
-            <End Role="MESA" EntitySet="MESA" />
-            <End Role="RESERVA" EntitySet="RESERVA" />
+          <AssociationSet Name="Restaurante_reserva_id_mesa_be5b365f_fk_Restaurante_mesa_id" Association="Self.Restaurante_reserva_id_mesa_be5b365f_fk_Restaurante_mesa_id">
+            <End Role="Restaurante_mesa" EntitySet="Restaurante_mesa" />
+            <End Role="Restaurante_reserva" EntitySet="Restaurante_reserva" />
           </AssociationSet>
-          <AssociationSet Name="FK_Pedido_Plato" Association="Self.FK_Pedido_Plato">
-            <End Role="PREPARACION" EntitySet="PREPARACION" />
-            <End Role="PEDIDO" EntitySet="PEDIDO" />
+          <AssociationSet Name="Restaurante_pedido_id_preparacion_a90e6494_fk_Restaurante_preparacion_id" Association="Self.Restaurante_pedido_id_preparacion_a90e6494_fk_Restaurante_preparacion_id">
+            <End Role="Restaurante_preparacion" EntitySet="Restaurante_preparacion" />
+            <End Role="Restaurante_pedido" EntitySet="Restaurante_pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK_Receta_Preparacion" Association="Self.FK_Receta_Preparacion">
-            <End Role="PREPARACION" EntitySet="PREPARACION" />
-            <End Role="RECETA" EntitySet="RECETA" />
+          <AssociationSet Name="Restaurante_receta_id_preparacion_81dc7866_fk_Restaurante_preparacion_id" Association="Self.Restaurante_receta_id_preparacion_81dc7866_fk_Restaurante_preparacion_id">
+            <End Role="Restaurante_preparacion" EntitySet="Restaurante_preparacion" />
+            <End Role="Restaurante_receta" EntitySet="Restaurante_receta" />
           </AssociationSet>
-          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
-            <End Role="ROL" EntitySet="ROL" />
-            <End Role="USUARIO" EntitySet="USUARIO" />
+          <AssociationSet Name="Restaurante_usuario_id_rol_09d6796e_fk_Restaurante_rol_id" Association="Self.Restaurante_usuario_id_rol_09d6796e_fk_Restaurante_rol_id">
+            <End Role="Restaurante_rol" EntitySet="Restaurante_rol" />
+            <End Role="Restaurante_usuario" EntitySet="Restaurante_usuario" />
           </AssociationSet>
-          <FunctionImport Name="SP_Ingreso_de_pedidos">
-            <Parameter Name="Id_pedido" Mode="In" Type="String" />
-            <Parameter Name="Id_atencion" Mode="In" Type="String" />
-            <Parameter Name="Id_mesa" Mode="In" Type="String" />
-            <Parameter Name="Id_preparacion" Mode="In" Type="String" />
-            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
-            <Parameter Name="Cantidad" Mode="In" Type="Decimal" />
-            <Parameter Name="Total" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="SP_Insercion_Empleados">
-            <Parameter Name="Id_usuario" Mode="In" Type="String" />
-            <Parameter Name="Rut" Mode="In" Type="String" />
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="Apellido_p" Mode="In" Type="String" />
-            <Parameter Name="Apellido_m" Mode="In" Type="String" />
-            <Parameter Name="ID_rol" Mode="In" Type="String" />
-            <Parameter Name="DIreccion" Mode="In" Type="String" />
-            <Parameter Name="COrreo" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_recetas" ReturnType="Collection(Restaurante_Siglo_XXIModel.SP_recetas_Result)" />
-          <FunctionImport Name="SP_Total_mas_vendido" ReturnType="Collection(Restaurante_Siglo_XXIModel.SP_Total_mas_vendido_Result)" />
+          <FunctionImport Name="SP_listarAtencion" ReturnType="Collection(RestauranteModel.SP_listarAtencion_Result)" />
+          <FunctionImport Name="SP_listarBoleta" ReturnType="Collection(RestauranteModel.SP_listarBoleta_Result)" />
+          <FunctionImport Name="SP_listarCategoria" ReturnType="Collection(RestauranteModel.SP_listarCategoria_Result)" />
+          <FunctionImport Name="SP_listarCategoriaInsumo" ReturnType="Collection(RestauranteModel.SP_listarCategoriaInsumo_Result)" />
+          <FunctionImport Name="SP_listarDetalleOrden" ReturnType="Collection(RestauranteModel.SP_listarDetalleOrden_Result)" />
+          <FunctionImport Name="SP_listarEstadoMesa" ReturnType="Collection(RestauranteModel.SP_listarEstadoMesa_Result)" />
+          <FunctionImport Name="SP_listarEstadoOrden" ReturnType="Collection(RestauranteModel.SP_listarEstadoOrden_Result)" />
+          <FunctionImport Name="SP_listarEstadoReserva" ReturnType="Collection(RestauranteModel.SP_listarEstadoReserva_Result)" />
+          <FunctionImport Name="SP_listarInsumo" ReturnType="Collection(RestauranteModel.SP_listarInsumo_Result)" />
+          <FunctionImport Name="SP_listarMarca" ReturnType="Collection(RestauranteModel.SP_listarMarca_Result)" />
+          <FunctionImport Name="SP_listarMedioPago" ReturnType="Collection(RestauranteModel.SP_listarMedioPago_Result)" />
+          <FunctionImport Name="SP_listarMesa" ReturnType="Collection(RestauranteModel.SP_listarMesa_Result)" />
+          <FunctionImport Name="SP_listarOrden" ReturnType="Collection(RestauranteModel.SP_listarOrden_Result)" />
+          <FunctionImport Name="SP_listarPedido" ReturnType="Collection(RestauranteModel.SP_listarPedido_Result)" />
+          <FunctionImport Name="SP_listarPreparacion" ReturnType="Collection(RestauranteModel.SP_listarPreparacion_Result)" />
+          <FunctionImport Name="SP_listarProveedor" ReturnType="Collection(RestauranteModel.SP_listarProveedor_Result)" />
+          <FunctionImport Name="SP_listarReceta" ReturnType="Collection(RestauranteModel.SP_listarReceta_Result)" />
+          <FunctionImport Name="SP_listarReserva" ReturnType="Collection(RestauranteModel.SP_listarReserva_Result)" />
+          <FunctionImport Name="SP_listarRol" ReturnType="Collection(RestauranteModel.SP_listarRol_Result)" />
+          <FunctionImport Name="SP_listarUsuario" ReturnType="Collection(RestauranteModel.SP_listarUsuario_Result)" />
         </EntityContainer>
-        <ComplexType Name="SP_recetas_Result">
-          <Property Type="String" Name="id_preparacion" Nullable="false" MaxLength="18" />
-          <Property Type="String" Name="nombre_receta" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="precio" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="id_categoria" Nullable="true" MaxLength="18" />
-          <Property Type="String" Name="img_preparacion" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="slug" Nullable="true" MaxLength="200" />
+        <ComplexType Name="SP_listarAtencion_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="porcion" Nullable="true" />
+          <Property Type="String" Name="u_medida" Nullable="true" MaxLength="5" />
+          <Property Type="Int64" Name="id_insumo" Nullable="true" />
+          <Property Type="Int64" Name="id_preparacion" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="SP_Total_mas_vendido_Result">
-          <Property Type="String" Name="Nombre_Plato" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="Total_cantidad_vendidos" Nullable="true" Precision="38" Scale="0" />
-          <Property Type="Decimal" Name="Total_Vendido" Nullable="true" Precision="38" Scale="0" />
-          <Property Type="String" Name="Mes_Actual" Nullable="true" MaxLength="30" />
+        <ComplexType Name="SP_listarBoleta_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_emision" Nullable="true" />
+          <Property Type="Int32" Name="valor_total" Nullable="true" />
+          <Property Type="Int64" Name="id_atencion" Nullable="true" />
+          <Property Type="Int64" Name="id_medio_de_pago" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_listarCategoria_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="descripcion" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="img_categoria" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_listarCategoriaInsumo_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="SP_listarDetalleOrden_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="cantidad" Nullable="false" />
+          <Property Type="String" Name="u_medida" Nullable="false" MaxLength="5" />
+          <Property Type="Int32" Name="precio_unitario" Nullable="true" />
+          <Property Type="Int32" Name="monto_total" Nullable="false" />
+          <Property Type="Int64" Name="estado" Nullable="false" />
+          <Property Type="Int64" Name="id_insumo" Nullable="false" />
+          <Property Type="Int64" Name="id_orden" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_listarEstadoMesa_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="SP_listarEstadoOrden_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="SP_listarEstadoReserva_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="estado" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="SP_listarInsumo_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="stock" Nullable="true" />
+          <Property Type="DateTime" Name="fecha_abastecimiento" Nullable="true" />
+          <Property Type="Int64" Name="id_categoria" Nullable="false" />
+          <Property Type="Int64" Name="id_marca" Nullable="true" />
+          <Property Type="Int64" Name="id_prov" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_listarMarca_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_listarMedioPago_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="tipo_de_pago" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="SP_listarMesa_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="capacidad" Nullable="true" />
+          <Property Type="Int64" Name="estado" Nullable="true" />
+          <Property Type="Int64" Name="id_usuario" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_listarOrden_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_orden" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_listarPedido_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="id_mesa" Nullable="true" MaxLength="18" />
+          <Property Type="DateTime" Name="fecha" Nullable="true" />
+          <Property Type="Int32" Name="cantidad" Nullable="true" />
+          <Property Type="Int32" Name="total" Nullable="true" />
+          <Property Type="Boolean" Name="entregado" Nullable="true" />
+          <Property Type="Int64" Name="id_atencion" Nullable="false" />
+          <Property Type="Int64" Name="id_preparacion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_listarPreparacion_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre_receta" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="precio" Nullable="true" />
+          <Property Type="String" Name="img_preparacion" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="modo_prep" Nullable="true" MaxLength="800" />
+          <Property Type="Int64" Name="id_categoria" Nullable="true" />
+          <Property Type="Int64" Name="minuto_prep" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_listarProveedor_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_listarReceta_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="Int32" Name="porcion" Nullable="true" />
+          <Property Type="String" Name="u_medida" Nullable="true" MaxLength="5" />
+          <Property Type="Int64" Name="id_insumo" Nullable="true" />
+          <Property Type="Int64" Name="id_preparacion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_listarReserva_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre_cliente" Nullable="false" MaxLength="30" />
+          <Property Type="DateTime" Name="fecha" Nullable="false" />
+          <Property Type="String" Name="telefono" Nullable="true" MaxLength="12" />
+          <Property Type="Int64" Name="estado" Nullable="false" />
+          <Property Type="Int64" Name="id_mesa" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_listarRol_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="rol" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_listarUsuario_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="rut" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="apellido_p" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="apellido_m" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="direccion" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="correo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="password" Nullable="true" MaxLength="50" />
+          <Property Type="Int64" Name="id_rol" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Restaurante_Siglo_XXIModelStoreContainer" CdmEntityContainer="Restaurante_Siglo_XXIEntities">
-          <EntitySetMapping Name="ATENCION">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.ATENCION">
-              <MappingFragment StoreEntitySet="ATENCION">
-                <ScalarProperty Name="id_atencion" ColumnName="id_atencion" />
+        <EntityContainerMapping StorageEntityContainer="RestauranteModelStoreContainer" CdmEntityContainer="RestauranteEntities">
+          <EntitySetMapping Name="auth_user">
+            <EntityTypeMapping TypeName="RestauranteModel.auth_user">
+              <MappingFragment StoreEntitySet="auth_user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="last_login" ColumnName="last_login" />
+                <ScalarProperty Name="is_superuser" ColumnName="is_superuser" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="is_staff" ColumnName="is_staff" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="date_joined" ColumnName="date_joined" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurante_atencion">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_atencion">
+              <MappingFragment StoreEntitySet="Restaurante_atencion">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="id_mesa" ColumnName="id_mesa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BOLETA">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.BOLETA">
-              <MappingFragment StoreEntitySet="BOLETA">
-                <ScalarProperty Name="id_boleta" ColumnName="id_boleta" />
-                <ScalarProperty Name="id_medio_de_pago" ColumnName="id_medio_de_pago" />
+          <EntitySetMapping Name="Restaurante_boleta">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_boleta">
+              <MappingFragment StoreEntitySet="Restaurante_boleta">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="fecha_emision" ColumnName="fecha_emision" />
-                <ScalarProperty Name="id_atencion" ColumnName="id_atencion" />
                 <ScalarProperty Name="valor_total" ColumnName="valor_total" />
+                <ScalarProperty Name="id_atencion" ColumnName="id_atencion" />
+                <ScalarProperty Name="id_medio_de_pago" ColumnName="id_medio_de_pago" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CATEGORIA">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.CATEGORIA">
-              <MappingFragment StoreEntitySet="CATEGORIA">
-                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <EntitySetMapping Name="Restaurante_categoria">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_categoria">
+              <MappingFragment StoreEntitySet="Restaurante_categoria">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="slug" ColumnName="slug" />
                 <ScalarProperty Name="img_categoria" ColumnName="img_categoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CATEGORIA_INSUMO">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.CATEGORIA_INSUMO">
-              <MappingFragment StoreEntitySet="CATEGORIA_INSUMO">
-                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+          <EntitySetMapping Name="Restaurante_categoriainsumo">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_categoriainsumo">
+              <MappingFragment StoreEntitySet="Restaurante_categoriainsumo">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DETALLE_ORDEN">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.DETALLE_ORDEN">
-              <MappingFragment StoreEntitySet="DETALLE_ORDEN">
-                <ScalarProperty Name="id_detalle_orden" ColumnName="id_detalle_orden" />
+          <EntitySetMapping Name="Restaurante_detalleorden">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_detalleorden">
+              <MappingFragment StoreEntitySet="Restaurante_detalleorden">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
                 <ScalarProperty Name="u_medida" ColumnName="u_medida" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="monto_total" ColumnName="monto_total" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_insumo" ColumnName="id_insumo" />
                 <ScalarProperty Name="id_orden" ColumnName="id_orden" />
-                <ScalarProperty Name="id_insumo" ColumnName="id_insumo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurante_estadomesa">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_estadomesa">
+              <MappingFragment StoreEntitySet="Restaurante_estadomesa">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ESTADO_MESA">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.ESTADO_MESA">
-              <MappingFragment StoreEntitySet="ESTADO_MESA">
+          <EntitySetMapping Name="Restaurante_estadoorden">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_estadoorden">
+              <MappingFragment StoreEntitySet="Restaurante_estadoorden">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ESTADO_ORDEN">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.ESTADO_ORDEN">
-              <MappingFragment StoreEntitySet="ESTADO_ORDEN">
+          <EntitySetMapping Name="Restaurante_estadoreserva">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_estadoreserva">
+              <MappingFragment StoreEntitySet="Restaurante_estadoreserva">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ESTADO_RESERVA">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.ESTADO_RESERVA">
-              <MappingFragment StoreEntitySet="ESTADO_RESERVA">
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="INSUMO">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.INSUMO">
-              <MappingFragment StoreEntitySet="INSUMO">
-                <ScalarProperty Name="id_insumo" ColumnName="id_insumo" />
+          <EntitySetMapping Name="Restaurante_insumo">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_insumo">
+              <MappingFragment StoreEntitySet="Restaurante_insumo">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="fecha_abastecimiento" ColumnName="fecha_abastecimiento" />
-                <ScalarProperty Name="id_prov" ColumnName="id_prov" />
-                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
                 <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+                <ScalarProperty Name="id_prov" ColumnName="id_prov" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MARCA">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.MARCA">
-              <MappingFragment StoreEntitySet="MARCA">
-                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+          <EntitySetMapping Name="Restaurante_marca">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_marca">
+              <MappingFragment StoreEntitySet="Restaurante_marca">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MEDIO_DE_PAGO">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.MEDIO_DE_PAGO">
-              <MappingFragment StoreEntitySet="MEDIO_DE_PAGO">
-                <ScalarProperty Name="id_medio_pago" ColumnName="id_medio_pago" />
+          <EntitySetMapping Name="Restaurante_mediodepago">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_mediodepago">
+              <MappingFragment StoreEntitySet="Restaurante_mediodepago">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="tipo_de_pago" ColumnName="tipo_de_pago" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MESA">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.MESA">
-              <MappingFragment StoreEntitySet="MESA">
-                <ScalarProperty Name="id_mesa" ColumnName="id_mesa" />
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+          <EntitySetMapping Name="Restaurante_mesa">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_mesa">
+              <MappingFragment StoreEntitySet="Restaurante_mesa">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="capacidad" ColumnName="capacidad" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ORDEN">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.ORDEN">
-              <MappingFragment StoreEntitySet="ORDEN">
-                <ScalarProperty Name="id_orden" ColumnName="id_orden" />
+          <EntitySetMapping Name="Restaurante_orden">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_orden">
+              <MappingFragment StoreEntitySet="Restaurante_orden">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="fecha_orden" ColumnName="fecha_orden" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PEDIDO">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.PEDIDO">
-              <MappingFragment StoreEntitySet="PEDIDO">
-                <ScalarProperty Name="id_atencion" ColumnName="id_atencion" />
+          <EntitySetMapping Name="Restaurante_pedido">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_pedido">
+              <MappingFragment StoreEntitySet="Restaurante_pedido">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_mesa" ColumnName="id_mesa" />
-                <ScalarProperty Name="id_preparacion" ColumnName="id_preparacion" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
                 <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="id_pedido" ColumnName="id_pedido" />
+                <ScalarProperty Name="entregado" ColumnName="entregado" />
+                <ScalarProperty Name="id_atencion" ColumnName="id_atencion" />
+                <ScalarProperty Name="id_preparacion" ColumnName="id_preparacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PREPARACION">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.PREPARACION">
-              <MappingFragment StoreEntitySet="PREPARACION">
-                <ScalarProperty Name="id_preparacion" ColumnName="id_preparacion" />
+          <EntitySetMapping Name="Restaurante_preparacion">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_preparacion">
+              <MappingFragment StoreEntitySet="Restaurante_preparacion">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre_receta" ColumnName="nombre_receta" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
                 <ScalarProperty Name="img_preparacion" ColumnName="img_preparacion" />
-                <ScalarProperty Name="slug" ColumnName="slug" />
+                <ScalarProperty Name="modo_prep" ColumnName="modo_prep" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="minuto_prep" ColumnName="minuto_prep" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PROVEEDOR">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.PROVEEDOR">
-              <MappingFragment StoreEntitySet="PROVEEDOR">
-                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+          <EntitySetMapping Name="Restaurante_proveedor">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_proveedor">
+              <MappingFragment StoreEntitySet="Restaurante_proveedor">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RECETA">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.RECETA">
-              <MappingFragment StoreEntitySet="RECETA">
-                <ScalarProperty Name="id_preparacion" ColumnName="id_preparacion" />
-                <ScalarProperty Name="id_insumo" ColumnName="id_insumo" />
+          <EntitySetMapping Name="Restaurante_receta">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_receta">
+              <MappingFragment StoreEntitySet="Restaurante_receta">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="porcion" ColumnName="porcion" />
                 <ScalarProperty Name="u_medida" ColumnName="u_medida" />
-                <ScalarProperty Name="id_receta" ColumnName="id_receta" />
+                <ScalarProperty Name="id_insumo" ColumnName="id_insumo" />
+                <ScalarProperty Name="id_preparacion" ColumnName="id_preparacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RESERVA">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.RESERVA">
-              <MappingFragment StoreEntitySet="RESERVA">
-                <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+          <EntitySetMapping Name="Restaurante_reserva">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_reserva">
+              <MappingFragment StoreEntitySet="Restaurante_reserva">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre_cliente" ColumnName="nombre_cliente" />
-                <ScalarProperty Name="id_mesa" ColumnName="id_mesa" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_mesa" ColumnName="id_mesa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ROL">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.ROL">
-              <MappingFragment StoreEntitySet="ROL">
-                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
-                <ScalarProperty Name="rol1" ColumnName="rol" />
+          <EntitySetMapping Name="Restaurante_rol">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_rol">
+              <MappingFragment StoreEntitySet="Restaurante_rol">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="USUARIO">
-            <EntityTypeMapping TypeName="Restaurante_Siglo_XXIModel.USUARIO">
-              <MappingFragment StoreEntitySet="USUARIO">
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+          <EntitySetMapping Name="Restaurante_usuario">
+            <EntityTypeMapping TypeName="RestauranteModel.Restaurante_usuario">
+              <MappingFragment StoreEntitySet="Restaurante_usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="rut" ColumnName="rut" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="apellido_p" ColumnName="apellido_p" />
                 <ScalarProperty Name="apellido_m" ColumnName="apellido_m" />
-                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SP_Ingreso_de_pedidos" FunctionName="Restaurante_Siglo_XXIModel.Store.SP_Ingreso_de_pedidos" />
-          <FunctionImportMapping FunctionImportName="SP_Insercion_Empleados" FunctionName="Restaurante_Siglo_XXIModel.Store.SP_Insercion_Empleados" />
-          <FunctionImportMapping FunctionImportName="SP_recetas" FunctionName="Restaurante_Siglo_XXIModel.Store.SP_recetas">
+          <FunctionImportMapping FunctionImportName="SP_listarAtencion" FunctionName="RestauranteModel.Store.SP_listarAtencion">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Restaurante_Siglo_XXIModel.SP_recetas_Result">
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarAtencion_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="porcion" ColumnName="porcion" />
+                <ScalarProperty Name="u_medida" ColumnName="u_medida" />
+                <ScalarProperty Name="id_insumo" ColumnName="id_insumo" />
                 <ScalarProperty Name="id_preparacion" ColumnName="id_preparacion" />
-                <ScalarProperty Name="nombre_receta" ColumnName="nombre_receta" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-                <ScalarProperty Name="img_preparacion" ColumnName="img_preparacion" />
-                <ScalarProperty Name="slug" ColumnName="slug" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_Total_mas_vendido" FunctionName="Restaurante_Siglo_XXIModel.Store.SP_Total_mas_vendido">
+          <FunctionImportMapping FunctionImportName="SP_listarBoleta" FunctionName="RestauranteModel.Store.SP_listarBoleta">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Restaurante_Siglo_XXIModel.SP_Total_mas_vendido_Result">
-                <ScalarProperty Name="Nombre_Plato" ColumnName="Nombre Plato" />
-                <ScalarProperty Name="Total_cantidad_vendidos" ColumnName="Total cantidad vendidos" />
-                <ScalarProperty Name="Total_Vendido" ColumnName="Total Vendido" />
-                <ScalarProperty Name="Mes_Actual" ColumnName="Mes Actual" />
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarBoleta_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha_emision" ColumnName="fecha_emision" />
+                <ScalarProperty Name="valor_total" ColumnName="valor_total" />
+                <ScalarProperty Name="id_atencion" ColumnName="id_atencion" />
+                <ScalarProperty Name="id_medio_de_pago" ColumnName="id_medio_de_pago" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarCategoria" FunctionName="RestauranteModel.Store.SP_listarCategoria">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarCategoria_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="img_categoria" ColumnName="img_categoria" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarCategoriaInsumo" FunctionName="RestauranteModel.Store.SP_listarCategoriaInsumo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarCategoriaInsumo_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarDetalleOrden" FunctionName="RestauranteModel.Store.SP_listarDetalleOrden">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarDetalleOrden_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="u_medida" ColumnName="u_medida" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="monto_total" ColumnName="monto_total" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_insumo" ColumnName="id_insumo" />
+                <ScalarProperty Name="id_orden" ColumnName="id_orden" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarEstadoMesa" FunctionName="RestauranteModel.Store.SP_listarEstadoMesa">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarEstadoMesa_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarEstadoOrden" FunctionName="RestauranteModel.Store.SP_listarEstadoOrden">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarEstadoOrden_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarEstadoReserva" FunctionName="RestauranteModel.Store.SP_listarEstadoReserva">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarEstadoReserva_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarInsumo" FunctionName="RestauranteModel.Store.SP_listarInsumo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarInsumo_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="fecha_abastecimiento" ColumnName="fecha_abastecimiento" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="id_marca" ColumnName="id_marca" />
+                <ScalarProperty Name="id_prov" ColumnName="id_prov" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarMarca" FunctionName="RestauranteModel.Store.SP_listarMarca">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarMarca_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarMedioPago" FunctionName="RestauranteModel.Store.SP_listarMedioPago">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarMedioPago_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo_de_pago" ColumnName="tipo_de_pago" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarMesa" FunctionName="RestauranteModel.Store.SP_listarMesa">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarMesa_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="capacidad" ColumnName="capacidad" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarOrden" FunctionName="RestauranteModel.Store.SP_listarOrden">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarOrden_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha_orden" ColumnName="fecha_orden" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarPedido" FunctionName="RestauranteModel.Store.SP_listarPedido">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarPedido_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_mesa" ColumnName="id_mesa" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="entregado" ColumnName="entregado" />
+                <ScalarProperty Name="id_atencion" ColumnName="id_atencion" />
+                <ScalarProperty Name="id_preparacion" ColumnName="id_preparacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarPreparacion" FunctionName="RestauranteModel.Store.SP_listarPreparacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarPreparacion_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_receta" ColumnName="nombre_receta" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="img_preparacion" ColumnName="img_preparacion" />
+                <ScalarProperty Name="modo_prep" ColumnName="modo_prep" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="minuto_prep" ColumnName="minuto_prep" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarProveedor" FunctionName="RestauranteModel.Store.SP_listarProveedor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarProveedor_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarReceta" FunctionName="RestauranteModel.Store.SP_listarReceta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarReceta_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="porcion" ColumnName="porcion" />
+                <ScalarProperty Name="u_medida" ColumnName="u_medida" />
+                <ScalarProperty Name="id_insumo" ColumnName="id_insumo" />
+                <ScalarProperty Name="id_preparacion" ColumnName="id_preparacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarReserva" FunctionName="RestauranteModel.Store.SP_listarReserva">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarReserva_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_cliente" ColumnName="nombre_cliente" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="id_mesa" ColumnName="id_mesa" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarRol" FunctionName="RestauranteModel.Store.SP_listarRol">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarRol_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_listarUsuario" FunctionName="RestauranteModel.Store.SP_listarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RestauranteModel.SP_listarUsuario_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rut" ColumnName="rut" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido_p" ColumnName="apellido_p" />
+                <ScalarProperty Name="apellido_m" ColumnName="apellido_m" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

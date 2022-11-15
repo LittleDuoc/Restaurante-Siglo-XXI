@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Atencion.cs" />
+    <Compile Include="Auth_user.cs" />
     <Compile Include="Boleta.cs" />
     <Compile Include="Categoria.cs" />
     <Compile Include="Categoria_insumo.cs" />

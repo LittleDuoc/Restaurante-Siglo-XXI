@@ -54,60 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATENCION.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BOLETA.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CATEGORIA.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CATEGORIA_INSUMO.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DETALLE_ORDEN.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ESTADO_MESA.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ESTADO_ORDEN.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ESTADO_RESERVA.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="INSUMO.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MARCA.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MEDIO_DE_PAGO.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MESA.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ORDEN.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PEDIDO.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PREPARACION.cs">
+    <Compile Include="auth_user.cs">
       <DependentUpon>RestauranteModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PROVEEDOR.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RECETA.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RESERVA.cs">
-      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    <Compile Include="RestauranteDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RestauranteDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RestauranteModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -124,22 +83,145 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RestauranteModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="ROL.cs">
+    <Compile Include="Restaurante_atencion.cs">
       <DependentUpon>RestauranteModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SP_recetas_Result.cs">
+    <Compile Include="Restaurante_boleta.cs">
       <DependentUpon>RestauranteModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SP_Total_mas_vendido_Result.cs">
+    <Compile Include="Restaurante_categoria.cs">
       <DependentUpon>RestauranteModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="USUARIO.cs">
+    <Compile Include="Restaurante_categoriainsumo.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_detalleorden.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_estadomesa.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_estadoorden.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_estadoreserva.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_insumo.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_marca.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_mediodepago.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_mesa.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_orden.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_pedido.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_preparacion.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_proveedor.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_receta.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_reserva.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_rol.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurante_usuario.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarAtencion_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarBoleta_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarCategoriaInsumo_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarCategoria_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarDetalleOrden_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarEstadoMesa_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarEstadoOrden_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarEstadoReserva_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarInsumo_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarMarca_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarMedioPago_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarMesa_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarOrden_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarPedido_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarPreparacion_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarProveedor_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarReceta_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarReserva_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarRol_Result.cs">
+      <DependentUpon>RestauranteModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_listarUsuario_Result.cs">
       <DependentUpon>RestauranteModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="RestauranteDataSet.xsc">
+      <DependentUpon>RestauranteDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="RestauranteDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RestauranteDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="RestauranteDataSet.xss">
+      <DependentUpon>RestauranteDataSet.xsd</DependentUpon>
+    </None>
     <EntityDeploy Include="RestauranteModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RestauranteModel.Designer.cs</LastGenOutput>
@@ -151,6 +233,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="RestauranteModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -162,9 +245,6 @@
       <DependentUpon>RestauranteModel.edmx</DependentUpon>
       <LastGenOutput>RestauranteModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

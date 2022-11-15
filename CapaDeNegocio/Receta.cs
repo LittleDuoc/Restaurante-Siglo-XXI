@@ -27,7 +27,25 @@ namespace CapaDeNegocio
             Porcion= 0;
             U_medida = "";
         }
+        public int Create()
+        {
+            try
+            {
+                CapaDeDatos.RECETA b = new CapaDeDatos.RECETA();
+                b.id_receta = this.Id_receta;
+                b.porcion = this.Porcion;
+                b.u_medida = this.U_medida;
 
-
+                CommonBC.Modelo.RECETA.Add(b);
+                CommonBC.Modelo.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return -1;
+            }
         }
+
+    }
 }

@@ -15,10 +15,10 @@ namespace CapaDeDatos
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Restaurante_Siglo_XXIEntities : DbContext
+    public partial class RestauranteEntities : DbContext
     {
-        public Restaurante_Siglo_XXIEntities()
-            : base("name=Restaurante_Siglo_XXIEntities")
+        public RestauranteEntities()
+            : base("name=RestauranteEntities")
         {
         }
     
@@ -27,109 +27,126 @@ namespace CapaDeDatos
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ATENCION> ATENCION { get; set; }
-        public virtual DbSet<BOLETA> BOLETA { get; set; }
-        public virtual DbSet<CATEGORIA> CATEGORIA { get; set; }
-        public virtual DbSet<CATEGORIA_INSUMO> CATEGORIA_INSUMO { get; set; }
-        public virtual DbSet<DETALLE_ORDEN> DETALLE_ORDEN { get; set; }
-        public virtual DbSet<ESTADO_MESA> ESTADO_MESA { get; set; }
-        public virtual DbSet<ESTADO_ORDEN> ESTADO_ORDEN { get; set; }
-        public virtual DbSet<ESTADO_RESERVA> ESTADO_RESERVA { get; set; }
-        public virtual DbSet<INSUMO> INSUMO { get; set; }
-        public virtual DbSet<MARCA> MARCA { get; set; }
-        public virtual DbSet<MEDIO_DE_PAGO> MEDIO_DE_PAGO { get; set; }
-        public virtual DbSet<MESA> MESA { get; set; }
-        public virtual DbSet<ORDEN> ORDEN { get; set; }
-        public virtual DbSet<PEDIDO> PEDIDO { get; set; }
-        public virtual DbSet<PREPARACION> PREPARACION { get; set; }
-        public virtual DbSet<PROVEEDOR> PROVEEDOR { get; set; }
-        public virtual DbSet<RECETA> RECETA { get; set; }
-        public virtual DbSet<RESERVA> RESERVA { get; set; }
-        public virtual DbSet<ROL> ROL { get; set; }
-        public virtual DbSet<USUARIO> USUARIO { get; set; }
+        public virtual DbSet<auth_user> auth_user { get; set; }
+        public virtual DbSet<Restaurante_atencion> Restaurante_atencion { get; set; }
+        public virtual DbSet<Restaurante_boleta> Restaurante_boleta { get; set; }
+        public virtual DbSet<Restaurante_categoria> Restaurante_categoria { get; set; }
+        public virtual DbSet<Restaurante_categoriainsumo> Restaurante_categoriainsumo { get; set; }
+        public virtual DbSet<Restaurante_detalleorden> Restaurante_detalleorden { get; set; }
+        public virtual DbSet<Restaurante_estadomesa> Restaurante_estadomesa { get; set; }
+        public virtual DbSet<Restaurante_estadoorden> Restaurante_estadoorden { get; set; }
+        public virtual DbSet<Restaurante_estadoreserva> Restaurante_estadoreserva { get; set; }
+        public virtual DbSet<Restaurante_insumo> Restaurante_insumo { get; set; }
+        public virtual DbSet<Restaurante_marca> Restaurante_marca { get; set; }
+        public virtual DbSet<Restaurante_mediodepago> Restaurante_mediodepago { get; set; }
+        public virtual DbSet<Restaurante_mesa> Restaurante_mesa { get; set; }
+        public virtual DbSet<Restaurante_orden> Restaurante_orden { get; set; }
+        public virtual DbSet<Restaurante_pedido> Restaurante_pedido { get; set; }
+        public virtual DbSet<Restaurante_preparacion> Restaurante_preparacion { get; set; }
+        public virtual DbSet<Restaurante_proveedor> Restaurante_proveedor { get; set; }
+        public virtual DbSet<Restaurante_receta> Restaurante_receta { get; set; }
+        public virtual DbSet<Restaurante_reserva> Restaurante_reserva { get; set; }
+        public virtual DbSet<Restaurante_rol> Restaurante_rol { get; set; }
+        public virtual DbSet<Restaurante_usuario> Restaurante_usuario { get; set; }
     
-        public virtual int SP_Ingreso_de_pedidos(string id_pedido, string id_atencion, string id_mesa, string id_preparacion, Nullable<System.DateTime> fecha, Nullable<decimal> cantidad, Nullable<decimal> total)
+        public virtual ObjectResult<SP_listarAtencion_Result> SP_listarAtencion()
         {
-            var id_pedidoParameter = id_pedido != null ?
-                new ObjectParameter("Id_pedido", id_pedido) :
-                new ObjectParameter("Id_pedido", typeof(string));
-    
-            var id_atencionParameter = id_atencion != null ?
-                new ObjectParameter("Id_atencion", id_atencion) :
-                new ObjectParameter("Id_atencion", typeof(string));
-    
-            var id_mesaParameter = id_mesa != null ?
-                new ObjectParameter("Id_mesa", id_mesa) :
-                new ObjectParameter("Id_mesa", typeof(string));
-    
-            var id_preparacionParameter = id_preparacion != null ?
-                new ObjectParameter("Id_preparacion", id_preparacion) :
-                new ObjectParameter("Id_preparacion", typeof(string));
-    
-            var fechaParameter = fecha.HasValue ?
-                new ObjectParameter("Fecha", fecha) :
-                new ObjectParameter("Fecha", typeof(System.DateTime));
-    
-            var cantidadParameter = cantidad.HasValue ?
-                new ObjectParameter("Cantidad", cantidad) :
-                new ObjectParameter("Cantidad", typeof(decimal));
-    
-            var totalParameter = total.HasValue ?
-                new ObjectParameter("Total", total) :
-                new ObjectParameter("Total", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Ingreso_de_pedidos", id_pedidoParameter, id_atencionParameter, id_mesaParameter, id_preparacionParameter, fechaParameter, cantidadParameter, totalParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarAtencion_Result>("SP_listarAtencion");
         }
     
-        public virtual int SP_Insercion_Empleados(string id_usuario, string rut, string nombre, string apellido_p, string apellido_m, string iD_rol, string dIreccion, string cOrreo, string password)
+        public virtual ObjectResult<SP_listarBoleta_Result> SP_listarBoleta()
         {
-            var id_usuarioParameter = id_usuario != null ?
-                new ObjectParameter("Id_usuario", id_usuario) :
-                new ObjectParameter("Id_usuario", typeof(string));
-    
-            var rutParameter = rut != null ?
-                new ObjectParameter("Rut", rut) :
-                new ObjectParameter("Rut", typeof(string));
-    
-            var nombreParameter = nombre != null ?
-                new ObjectParameter("Nombre", nombre) :
-                new ObjectParameter("Nombre", typeof(string));
-    
-            var apellido_pParameter = apellido_p != null ?
-                new ObjectParameter("Apellido_p", apellido_p) :
-                new ObjectParameter("Apellido_p", typeof(string));
-    
-            var apellido_mParameter = apellido_m != null ?
-                new ObjectParameter("Apellido_m", apellido_m) :
-                new ObjectParameter("Apellido_m", typeof(string));
-    
-            var iD_rolParameter = iD_rol != null ?
-                new ObjectParameter("ID_rol", iD_rol) :
-                new ObjectParameter("ID_rol", typeof(string));
-    
-            var dIreccionParameter = dIreccion != null ?
-                new ObjectParameter("DIreccion", dIreccion) :
-                new ObjectParameter("DIreccion", typeof(string));
-    
-            var cOrreoParameter = cOrreo != null ?
-                new ObjectParameter("COrreo", cOrreo) :
-                new ObjectParameter("COrreo", typeof(string));
-    
-            var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Insercion_Empleados", id_usuarioParameter, rutParameter, nombreParameter, apellido_pParameter, apellido_mParameter, iD_rolParameter, dIreccionParameter, cOrreoParameter, passwordParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarBoleta_Result>("SP_listarBoleta");
         }
     
-        public virtual ObjectResult<SP_recetas_Result> SP_recetas()
+        public virtual ObjectResult<SP_listarCategoria_Result> SP_listarCategoria()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_recetas_Result>("SP_recetas");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarCategoria_Result>("SP_listarCategoria");
         }
     
-        public virtual ObjectResult<SP_Total_mas_vendido_Result> SP_Total_mas_vendido()
+        public virtual ObjectResult<SP_listarCategoriaInsumo_Result> SP_listarCategoriaInsumo()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_Total_mas_vendido_Result>("SP_Total_mas_vendido");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarCategoriaInsumo_Result>("SP_listarCategoriaInsumo");
+        }
+    
+        public virtual ObjectResult<SP_listarDetalleOrden_Result> SP_listarDetalleOrden()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarDetalleOrden_Result>("SP_listarDetalleOrden");
+        }
+    
+        public virtual ObjectResult<SP_listarEstadoMesa_Result> SP_listarEstadoMesa()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarEstadoMesa_Result>("SP_listarEstadoMesa");
+        }
+    
+        public virtual ObjectResult<SP_listarEstadoOrden_Result> SP_listarEstadoOrden()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarEstadoOrden_Result>("SP_listarEstadoOrden");
+        }
+    
+        public virtual ObjectResult<SP_listarEstadoReserva_Result> SP_listarEstadoReserva()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarEstadoReserva_Result>("SP_listarEstadoReserva");
+        }
+    
+        public virtual ObjectResult<SP_listarInsumo_Result> SP_listarInsumo()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarInsumo_Result>("SP_listarInsumo");
+        }
+    
+        public virtual ObjectResult<SP_listarMarca_Result> SP_listarMarca()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarMarca_Result>("SP_listarMarca");
+        }
+    
+        public virtual ObjectResult<SP_listarMedioPago_Result> SP_listarMedioPago()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarMedioPago_Result>("SP_listarMedioPago");
+        }
+    
+        public virtual ObjectResult<SP_listarMesa_Result> SP_listarMesa()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarMesa_Result>("SP_listarMesa");
+        }
+    
+        public virtual ObjectResult<SP_listarOrden_Result> SP_listarOrden()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarOrden_Result>("SP_listarOrden");
+        }
+    
+        public virtual ObjectResult<SP_listarPedido_Result> SP_listarPedido()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarPedido_Result>("SP_listarPedido");
+        }
+    
+        public virtual ObjectResult<SP_listarPreparacion_Result> SP_listarPreparacion()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarPreparacion_Result>("SP_listarPreparacion");
+        }
+    
+        public virtual ObjectResult<SP_listarProveedor_Result> SP_listarProveedor()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarProveedor_Result>("SP_listarProveedor");
+        }
+    
+        public virtual ObjectResult<SP_listarReceta_Result> SP_listarReceta()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarReceta_Result>("SP_listarReceta");
+        }
+    
+        public virtual ObjectResult<SP_listarReserva_Result> SP_listarReserva()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarReserva_Result>("SP_listarReserva");
+        }
+    
+        public virtual ObjectResult<SP_listarRol_Result> SP_listarRol()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarRol_Result>("SP_listarRol");
+        }
+    
+        public virtual ObjectResult<SP_listarUsuario_Result> SP_listarUsuario()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_listarUsuario_Result>("SP_listarUsuario");
         }
     }
 }
